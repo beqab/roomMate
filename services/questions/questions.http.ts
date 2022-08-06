@@ -1,10 +1,12 @@
 import { axiosHeaderConfig } from "../api";
 import { axiosWithToken } from "../axios-with-token";
-import axios from "axios";
+
+import axios, { AxiosPromise } from "axios";
 import { backEndRoutes } from "../backend-routes";
 
 export type IQuestions = {
   id: number;
+  type: "choice" | "free-text" | "password" | "text";
   title: string;
   description: string;
   user_property: boolean;
@@ -16,12 +18,12 @@ export type IQuestions = {
     question_id: number;
     active: boolean;
   }[];
-}[];
+};
 
 class _Questions {
-  getQuestions = (): Promise<IQuestions> => {
+  getQuestions = (): AxiosPromise<IQuestions[]> => {
     return axios.get(backEndRoutes.questions.getQuestions());
   };
 }
 
-export const AuthService = new _Questions();
+export const Questions = new _Questions();

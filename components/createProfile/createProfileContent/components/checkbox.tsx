@@ -9,15 +9,17 @@ interface ICheckbox {
 
 export const Checkbox = ({ label, setValue, id, selected }: ICheckbox) => {
   return (
-    <label
-      onClick={() => {
-        console.log(selected);
-        setValue(id);
-      }}
-      className="createProfile_checkboxItem"
-    >
+    <label className="createProfile_checkboxItem">
       <div className="checkbox_wrapper">
-        <input readOnly checked={selected} type="checkbox"></input>
+        <input
+          onChange={() => {
+            console.log(selected);
+            setValue(id);
+          }}
+          readOnly
+          checked={selected}
+          type="checkbox"
+        ></input>
         <span className="checkmark"></span>
       </div>
 

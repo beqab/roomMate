@@ -1,30 +1,62 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Checkbox } from "../components/checkbox";
 import { Heading } from "../components/heading";
+import { IQuestions } from "../../../../services/questions/questions.http";
 
 interface IRadioProps {
-  data: {
-    question: string;
-    options: { option: string; optionId: number }[];
-  };
+  data: IQuestions;
+  setData: (d) => void;
+  values: { [key: string]: [] };
 }
 
-export default function radio({ data }: IRadioProps) {
-  const [value, setValue] = useState<null | number>(null);
+export default function radio({ data, setData, values }: IRadioProps) {
+  const [value, setValue] = useState<number[]>([]);
+
+  useEffect(() => {
+    console.log(value, "vvvvvvvvvvvvvvvvv");
+    if (values && values[data.id] && values[data.id].length > 0) {
+      setValue(values[data.id]);
+    } else {
+      setValue([]);
+    }
+  }, [values, data.id]);
+
+  useEffect(() => {}, []);
+
   return (
     <div>
-      <Heading text={data.question} />
+      <Heading text={data.title} />
       <div className="createProfile_checkboxItem_wrapper">
-        {data.options.map((item, i) => {
+        {data.answers.map((item, i) => {
           return (
             <Checkbox
-              key={i}
+              key={item.id}
               setValue={(v) => {
-                setValue(v);
+                if (value.includes(item.id)) {
+                  setValue(value.filter((id) => id !== item.id));
+                  setData({
+                    question_id: item.question_id,
+                    value: value.filter((id) => id !== item.id),
+                  });
+                } else {
+                  if (data.is_multiple) {
+                    setValue([...value, item.id]);
+                    setData({
+                      question_id: item.question_id,
+                      value: [...value, item.id],
+                    });
+                  } else {
+                    setValue([item.id]);
+                    setData({
+                      question_id: item.question_id,
+                      value: [item.id],
+                    });
+                  }
+                }
               }}
-              label={item.option}
-              id={i}
-              selected={i === value}
+              label={item.title}
+              id={item.id}
+              selected={value.includes(item.id)}
             />
           );
         })}

@@ -1,25 +1,69 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { registerQuestions } from "./data";
 import CreateProfileContent from "./createProfileContent";
+import { Questions, IQuestions } from "../../services/questions/questions.http";
 
 function CreateProfileWrapper(props) {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [questions, setQuestions] = useState<IQuestions[]>([]);
+
+  const [answersContainer, setAnswersContainer] = useState<{
+    [key: string]: [];
+  }>({});
+
+  useEffect(() => {
+    Questions.getQuestions()
+      .then((res) => {
+        console.log(res);
+        setQuestions(res.data.sort((a, b) => a.position - b.position));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const modalNavigate = (type: "prev" | "next") => {
+    // alert(answersContainer[currentQuestionIndex + 1]);
+    console.log(
+      JSON.stringify(answersContainer),
+      "nnnnnnnnnnnnnnndddddddddddddd"
+    );
+
     if (type === "prev") {
-      if (currentQuestion === 0) return;
-      setCurrentQuestion(currentQuestion - 1);
+      if (currentQuestionIndex === 0) return;
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
     }
     if (type === "next") {
-      if (currentQuestion === registerQuestions.length - 1) return;
-      setCurrentQuestion(currentQuestion + 1);
+      if (currentQuestionIndex === questions.length - 1) return;
+
+      if (
+        !answersContainer[currentQuestionIndex + 1] ||
+        !answersContainer[currentQuestionIndex + 1].length
+      ) {
+        console.log(answersContainer);
+        alert("this field is required");
+      } else {
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+      }
     }
   };
 
   return (
     <div className="createProfile_wrapper">
       <div className="createProfile_contentContainer">
-        <CreateProfileContent data={registerQuestions[currentQuestion]} />
+        {questions.length ? (
+          <CreateProfileContent
+            setData={(data) => {
+              console.log(data);
+              setAnswersContainer({
+                ...answersContainer,
+                [data.question_id]: [...data.value],
+              });
+            }}
+            data={questions[currentQuestionIndex]}
+            values={answersContainer}
+          />
+        ) : null}
       </div>
       <div className="createProfile_controllerWrapper d-flex justify-content-between">
         <div onClick={() => modalNavigate("prev")} className="left_button">

@@ -1,26 +1,20 @@
 import React, { useState } from "react";
 import { Checkbox } from "../components/checkbox";
 import { Heading } from "../components/heading";
+import { IQuestions } from "../../../../services/questions/questions.http";
 
-interface ISelectProps {
-  data: {
-    question: string;
-    options: { option: string; optionId: number }[];
-  };
-}
-
-export const Select = ({ data }: ISelectProps) => {
+export const Select = ({ data }: { data: IQuestions }) => {
   const [values, setValues] = useState([]);
 
   return (
     <div>
-      <Heading text={data.question} />
+      <Heading text={data.title} />
       <input
         placeholder="ძებნა..."
         className="mt-4 mb-3 searchInput form-control placeholder-active "
       />
       <div className="createProfile_checkboxItem_wrapper mt-0">
-        {data.options.map((item, i) => {
+        {data.answers.map((item, i) => {
           return (
             <Checkbox
               key={i}
@@ -32,7 +26,7 @@ export const Select = ({ data }: ISelectProps) => {
                   setValues([...values, v]);
                 }
               }}
-              label={item.option}
+              label={item.title}
               id={i}
               selected={!!values.find((el) => el === i)}
             />
