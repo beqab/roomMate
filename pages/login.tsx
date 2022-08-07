@@ -9,11 +9,11 @@ import axios from "axios";
 
 interface ILoginForm {
   password: string;
-  email: string;
+  phone: string;
 }
 
 interface IErrorMsg {
-  email?: string | Array<string>;
+  phone?: string | Array<string>;
   password?: string | Array<string>;
 }
 
@@ -40,7 +40,7 @@ const login = () => {
       const res = await AuthService.login(data);
 
       // debugger;
-      dispatch(setCurrentUser(res.data));
+      dispatch(setCurrentUser({ user: {}, token: res.data.access_token }));
       setLoad(false);
     } catch (e) {
       console.log(e);
@@ -60,27 +60,26 @@ const login = () => {
         </div>
         <FormGroup
           errorMessage={
-            errors?.email?.message
-              ? errors?.email?.message
-              : errors?.email?.type === "pattern"
-              ? "please enter valid email address"
+            errors?.phone?.message
+              ? errors?.phone?.message
+              : errors?.phone?.type === "pattern"
+              ? "please enter valid phone address"
               : ""
           }
-          Label="Email"
+          Label="phone"
         >
           <Input
             type="text"
-            name={"email"}
+            name={"phone"}
             placeholder="example@bitbook.com"
-            hasError={!!errors?.email}
+            hasError={!!errors?.phone}
             onChange={() => {
-              //   clearError("email");
+              //   clearError("phone");
               //   setUnVerify(false);
             }}
-            useRef={register("email")}
-            {...register("email", {
+            useRef={register("phone")}
+            {...register("phone", {
               required: "მეილი აუცილებელია",
-              pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
             })}
           />
         </FormGroup>

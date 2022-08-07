@@ -34,7 +34,18 @@ function CreateProfileWrapper(props) {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
     }
     if (type === "next") {
-      if (currentQuestionIndex === questions.length - 1) return;
+      if (currentQuestionIndex === questions.length - 1) {
+        Questions.saveAnswers({
+          answers: answersContainer,
+        })
+          .then((res) => {
+            debugger;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        return;
+      }
 
       if (
         !answersContainer[currentQuestionIndex + 1] ||

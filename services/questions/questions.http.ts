@@ -24,6 +24,10 @@ class _Questions {
   getQuestions = (): AxiosPromise<IQuestions[]> => {
     return axios.get(backEndRoutes.questions.getQuestions());
   };
+
+  saveAnswers = (answers: any): AxiosPromise => {
+    return axios.post(backEndRoutes.questions.saveAnswers(), answers);
+  };
 }
 
 export const Questions = new _Questions();

@@ -18,7 +18,7 @@ const Content: React.FC<IContentProps> = ({ data, setData, values }) => {
   const GetAnswers = (data) => {
     return <> "ups"</>;
   };
-
+  if (!data?.type) return <>.</>;
   switch (data.type) {
     case "choice":
       return <Radio values={values} setData={(d) => setData(d)} data={data} />;
