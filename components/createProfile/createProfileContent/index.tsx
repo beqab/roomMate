@@ -16,7 +16,7 @@ const Content: React.FC<IContentProps> = ({ data, setData, values }) => {
   // console.log(data);
 
   const GetAnswers = (data) => {
-    return <> "ups"</>;
+    return <> ups</>;
   };
   if (!data?.type) return <>.</>;
   switch (data.type) {

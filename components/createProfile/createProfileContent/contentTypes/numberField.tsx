@@ -20,7 +20,7 @@ export const NumberText = ({ data, setData, values }: IContentProps) => {
 
       setValue([]);
     }
-    console.log(value, "valueee");
+    console.log(data.id, "valueee");
   }, [values, data.id]);
 
   return (

@@ -17,7 +17,7 @@ interface IErrorMsg {
   password?: string | Array<string>;
 }
 
-const login = () => {
+const Login = () => {
   const dispatch = useDispatch();
   const {
     register,
@@ -131,7 +131,7 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;
 
 // import React from "react";
 // import { useForm } from "react-hook-form";

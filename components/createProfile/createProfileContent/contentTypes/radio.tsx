@@ -9,7 +9,7 @@ interface IRadioProps {
   values: { [key: string]: [] };
 }
 
-export default function radio({ data, setData, values }: IRadioProps) {
+export default function Radio({ data, setData, values }: IRadioProps) {
   const [value, setValue] = useState<number[]>([]);
 
   useEffect(() => {
@@ -19,6 +19,7 @@ export default function radio({ data, setData, values }: IRadioProps) {
     } else {
       setValue([]);
     }
+    console.log(data.id);
   }, [values, data.id]);
 
   useEffect(() => {}, []);
