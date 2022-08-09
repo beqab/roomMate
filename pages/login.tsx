@@ -9,6 +9,8 @@ import Header from "../components/Header";
 import Footer from "../components/footer";
 import axios from "axios";
 import Router from "next/router";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 interface ILoginForm {
   password: string;
@@ -49,6 +51,15 @@ const Login = () => {
     } catch (e) {
       console.log(e);
       setLoad(false);
+      toast.error("error", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
     // console.log(data);
   });
@@ -57,6 +68,7 @@ const Login = () => {
 
   return (
     <div className="login">
+      <ToastContainer />
       <div className="headerWrapper">
         <Header />
       </div>
