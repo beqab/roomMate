@@ -1,0 +1,23 @@
+.nav {
+  &_wrapper {
+    align-items: center;
+    ul {
+      margin-right: 15px;
+      li {
+        a {
+          font-size: 14px;
+          color: #fff;
+          text-decoration: none;
+          transition: 0.3s;
+          &:hover {
+            color: $brandColor;
+          }
+        }
+        margin: 0 15px;
+      }
+    }
+  }
+}
+header {
+  padding: 20px 0;
+}
