@@ -6,28 +6,32 @@ import { Questions, IQuestions } from "../../services/questions/questions.http";
 function CreateProfileWrapper(props) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [questions, setQuestions] = useState<IQuestions[]>([]);
+  const [loadQuestions, setLoadQuestions] = useState(false);
 
   const [answersContainer, setAnswersContainer] = useState<{
     [key: string]: [];
   }>({});
 
   useEffect(() => {
+    setLoadQuestions(true);
     Questions.getQuestions()
       .then((res) => {
         console.log(res);
         setQuestions(res.data.sort((a, b) => a.position - b.position));
+        setLoadQuestions(false);
       })
       .catch((err) => {
         console.log(err);
+        setLoadQuestions(false);
       });
   }, []);
 
   const modalNavigate = (type: "prev" | "next") => {
     // alert(answersContainer[currentQuestionIndex + 1]);
-    console.log(
-      JSON.stringify(answersContainer),
-      "nnnnnnnnnnnnnnndddddddddddddd"
-    );
+    // console.log(
+    //   JSON.stringify(answersContainer),
+    //   "nnnnnnnnnnnnnnndddddddddddddd"
+    // );
 
     if (type === "prev") {
       if (currentQuestionIndex === 0) return;

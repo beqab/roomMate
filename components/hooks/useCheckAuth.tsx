@@ -10,9 +10,9 @@ export const useCheckAuth = (redirect = true) => {
   const dispatch = useDispatch();
   const [loadUser, setLoadUser] = useState(false);
   useEffect(() => {
-    debugger;
+    // debugger;
     if (localStorage.getItem("token")) {
-      debugger;
+      // debugger;
 
       if (!(window as any).hasCheckedAuth) {
         setAuthorizationToken(localStorage.getItem("token")!);
@@ -22,8 +22,8 @@ export const useCheckAuth = (redirect = true) => {
           ProfileService.getUser(localStorage.getItem("token"))
             .then((res) => {
               (window as any).hasCheckedAuth = true;
-              debugger;
-              // dispatch(setCurrentUser(res.data));
+              // debugger;
+              dispatch(setCurrentUser(res.data));
               setLoadUser(false);
             })
             .catch((err) => {
@@ -32,15 +32,15 @@ export const useCheckAuth = (redirect = true) => {
               // localStorage.removeItem("token");
               // localStorage.removeItem("user");
               if (redirect) {
-                // router.push("/login");
+                router.push("/login");
               }
             });
         }
       }
     } else {
-      debugger;
+      // debugger;
       if (redirect) {
-        // router.push("/login");
+        router.push("/login");
       }
     }
   }, []);

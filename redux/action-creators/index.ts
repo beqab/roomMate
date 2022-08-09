@@ -13,6 +13,6 @@ export const setCurrentUser = (user: any) => {
   setAuthorizationToken(user.token);
   return {
     type: EActionTypes.SET_USER_ACTION,
-    payload: { user },
+    payload: { ...user },
   };
 };

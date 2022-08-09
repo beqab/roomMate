@@ -9,7 +9,7 @@ const InitState: ISearchReducer = {
   user: null,
 };
 
-export const searchReducer = (
+export const profileReducer = (
   state: ISearchReducer = InitState,
   action: TActions
 ): ISearchReducer => {

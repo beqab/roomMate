@@ -5,7 +5,10 @@ import Link from "next/link";
 import { AuthService } from "../services/auth/auth.http";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../redux/action-creators/index";
+import Header from "../components/Header";
+import Footer from "../components/footer";
 import axios from "axios";
+import Router from "next/router";
 
 interface ILoginForm {
   password: string;
@@ -42,6 +45,7 @@ const Login = () => {
       // debugger;
       dispatch(setCurrentUser({ user: {}, token: res.data.access_token }));
       setLoad(false);
+      Router.push("/profile");
     } catch (e) {
       console.log(e);
       setLoad(false);
@@ -52,81 +56,102 @@ const Login = () => {
   console.log(errors);
 
   return (
-    <div className="container w-25 mt-5">
-      <form onSubmit={submit} className="contentWrapper">
-        <h4 className="form_title">Login to BitBook</h4>
-        <div className="separatorLine">
-          <span>or</span>
-        </div>
-        <FormGroup
-          errorMessage={
-            errors?.phone?.message
-              ? errors?.phone?.message
-              : errors?.phone?.type === "pattern"
-              ? "please enter valid phone address"
-              : ""
-          }
-          Label="phone"
-        >
-          <Input
-            type="text"
-            name={"phone"}
-            placeholder="example@bitbook.com"
-            hasError={!!errors?.phone}
-            onChange={() => {
-              //   clearError("phone");
-              //   setUnVerify(false);
-            }}
-            useRef={register("phone")}
-            {...register("phone", {
-              required: "მეილი აუცილებელია",
-            })}
-          />
-        </FormGroup>
-
-        <FormGroup
-          errorMessage={
-            errors?.password ? errors.password.message : "მინიმუმ 6 სიმბოლო"
-          }
-          Label={
-            <label
-              className="form-control-label d-flex "
-              htmlFor="inputSuccess2"
-            >
-              <span> Password </span>
-              <Link href="/forgotPassword">
-                <a>Forgot password?</a>
+    <div className="login">
+      <div className="headerWrapper">
+        <Header />
+      </div>
+      <div className="container loginSection w-25 mt-5">
+        <div className="loginSection_container">
+          <div className="leftSide">
+            <div>
+              <Link href="/">
+                <a>Logo</a>
               </Link>
-            </label>
-          }
-        >
-          <Input
-            useRef={register("password")}
-            type="password"
-            hasError={!!errors?.password}
-            placeholder="password"
-            {...register("password", {
-              required: "პაროლი აუცილებელია",
-              minLength: 6,
-            })}
-          />
-        </FormGroup>
+              <p>იპოვე ოთახის მეზობელი ხარჯების გაყოფის მიზნით</p>
+            </div>
+          </div>
+          <div className="form_Wrapper">
+            <form onSubmit={submit} className="contentWrapper">
+              <h2 className="form_title">ვტორიზაცია</h2>
 
-        <div className="form-check">
-          <input
-            type="checkbox"
-            className="form-check-input"
-            id="exampleCheck1"
-          />
-          <label className="form-check-label k" htmlFor="exampleCheck1">
-            Remember me
-          </label>
+              <FormGroup
+                errorMessage={
+                  errors?.phone?.message
+                    ? errors?.phone?.message
+                    : errors?.phone?.type === "pattern"
+                    ? "მობილური"
+                    : ""
+                }
+                Label="მობილურის ნომერი"
+              >
+                <Input
+                  type="text"
+                  name={"phone"}
+                  placeholder="579121212"
+                  hasError={!!errors?.phone}
+                  onChange={() => {
+                    //   clearError("phone");
+                    //   setUnVerify(false);
+                  }}
+                  useRef={register("phone")}
+                  {...register("phone", {
+                    required: "მოობილური აუცილებელია",
+                  })}
+                />
+              </FormGroup>
+
+              <FormGroup
+                errorMessage={errors?.password ? errors.password.message : ""}
+                Label={
+                  <label
+                    className="form-control-label d-flex "
+                    htmlFor="inputSuccess2"
+                  >
+                    <span> პაროლი </span>
+                  </label>
+                }
+              >
+                <Input
+                  className="password"
+                  useRef={register("password")}
+                  type="password"
+                  hasError={!!errors?.password}
+                  placeholder="password"
+                  {...register("password", {
+                    required: "პაროლი აუცილებელია",
+                  })}
+                />
+              </FormGroup>
+
+              {/* <div className="form-check">
+                <input
+                  type="checkbox"
+                  className="form-check-input"
+                  id="exampleCheck1"
+                />
+                <label className="form-check-label k" htmlFor="exampleCheck1">
+                  Remember me
+                </label>
+              </div> */}
+
+              <Button
+                loading={load}
+                className="btn btn-primary w-100 mt-3 py-2 mb-3"
+              >
+                შესვლა
+              </Button>
+              <Link href="/createProfile">
+                <a className="label">რეგისტრაცია</a>
+              </Link>
+              <br />
+              <Link href="/forgotPassword">
+                <a className="label">დაგავიწყდა პაროლი?</a>
+              </Link>
+            </form>
+          </div>
         </div>
-
-        <Button loading={load} className="btn btn-primary w-100 mt-3 py-2">
-          Log In
-        </Button>
-      </form>
+      </div>
+      <Footer />
     </div>
   );
 };

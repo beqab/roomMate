@@ -25,7 +25,7 @@ const IndexPage = () => {
                   იპოვე ოთახის მეზობელი <br />
                   ხარჯების გაყოფის მიზნით
                 </h1>
-                <Link href="/">
+                <Link href="/createProfile">
                   <a className="btn btn-primary ">იპოვე შენი ოთახის მეზობელი</a>
                 </Link>
               </div>

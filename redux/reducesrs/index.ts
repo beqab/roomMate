@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import { searchReducer } from "./profileReducer";
+import { profileReducer } from "./profileReducer";
 
 const reducers = combineReducers({
-  repositories: searchReducer,
+  profile: profileReducer,
 });
 
 export default reducers;
