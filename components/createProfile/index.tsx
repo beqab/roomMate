@@ -2,11 +2,16 @@ import React, { useState, useEffect } from "react";
 import { registerQuestions } from "./data";
 import CreateProfileContent from "./createProfileContent";
 import { Questions, IQuestions } from "../../services/questions/questions.http";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Router from "next/router";
+import { Button } from "../common/form/button";
 
 function CreateProfileWrapper(props) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [questions, setQuestions] = useState<IQuestions[]>([]);
   const [loadQuestions, setLoadQuestions] = useState(false);
+  const [registerLoad, setRegisterLoad] = useState(false);
 
   const [answersContainer, setAnswersContainer] = useState<{
     [key: string]: [];
@@ -39,14 +44,39 @@ function CreateProfileWrapper(props) {
     }
     if (type === "next") {
       if (currentQuestionIndex === questions.length - 1) {
+        setRegisterLoad(true);
         Questions.saveAnswers({
           answers: answersContainer,
         })
           .then((res) => {
-            debugger;
+            setRegisterLoad(false);
+
+            toast.success("გილოცავთ თქვენ წამატებით დარეგისტრირდით", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            setTimeout(() => {
+              Router.push("/login");
+            }, 3000);
           })
           .catch((err) => {
+            setRegisterLoad(false);
+
             console.log(err);
+            toast.error("error", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
           });
         return;
       }
@@ -56,7 +86,16 @@ function CreateProfileWrapper(props) {
         !answersContainer[currentQuestionIndex + 1].length
       ) {
         console.log(answersContainer);
-        alert("this field is required");
+
+        toast.error("მოცემული ველი აუცილებელია", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       } else {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
       }
@@ -65,7 +104,9 @@ function CreateProfileWrapper(props) {
 
   return (
     <div className="createProfile_wrapper">
+      <ToastContainer />
       <div className="createProfile_contentContainer">
+        {loadQuestions && <div className="text-center">ტვირთება...</div>}
         {questions.length ? (
           <CreateProfileContent
             setData={(data) => {
@@ -98,20 +139,29 @@ function CreateProfileWrapper(props) {
           <span className="d-inline-block m-2"> წინა</span>
         </div>{" "}
         <div onClick={() => modalNavigate("next")} className={"right_button"}>
-          <span className="d-inline-block m-2">შემდეგი</span>
-          <svg
-            className="ml-3"
-            width="30"
-            height="15"
-            viewBox="0 0 30 15"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M20.7398 0.48248C20.3633 0.197163 19.8429 0.197162 19.4664 0.48248C18.9101 0.904061 18.9097 1.74016 19.4657 2.16222L25.2619 6.5625H0.9375C0.419733 6.5625 0 6.98223 0 7.5C0 8.01777 0.419733 8.4375 0.9375 8.4375H25.2619L19.4657 12.8378C18.9097 13.2598 18.9101 14.0959 19.4664 14.5175C19.8429 14.8028 20.3633 14.8028 20.7398 14.5175L28.9483 8.297C29.4763 7.89685 29.4763 7.10315 28.9483 6.703L20.7398 0.48248Z"
-              fill="white"
-            />
-          </svg>
+          {currentQuestionIndex === questions.length - 1 ? (
+            <Button loading={registerLoad} className="btn btn-light">
+              რეგისტრაცია
+            </Button>
+          ) : (
+            // <button className="btn btn-light">რეგისტრაცია</button>
+            <>
+              <span className="d-inline-block m-2">შემდეგი</span>
+              <svg
+                className="ml-3"
+                width="30"
+                height="15"
+                viewBox="0 0 30 15"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M20.7398 0.48248C20.3633 0.197163 19.8429 0.197162 19.4664 0.48248C18.9101 0.904061 18.9097 1.74016 19.4657 2.16222L25.2619 6.5625H0.9375C0.419733 6.5625 0 6.98223 0 7.5C0 8.01777 0.419733 8.4375 0.9375 8.4375H25.2619L19.4657 12.8378C18.9097 13.2598 18.9101 14.0959 19.4664 14.5175C19.8429 14.8028 20.3633 14.8028 20.7398 14.5175L28.9483 8.297C29.4763 7.89685 29.4763 7.10315 28.9483 6.703L20.7398 0.48248Z"
+                  fill="white"
+                />
+              </svg>
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -136,6 +136,11 @@
 }
 
 .right_button {
+  span {
+    color: #fff;
+  }
+
+  color: #fff;
   svg {
     transition: 0.3s;
   }
@@ -147,6 +152,10 @@
 }
 
 .left_button {
+  span {
+    color: #fff;
+  }
+
   svg {
     transition: 0.3s;
   }
