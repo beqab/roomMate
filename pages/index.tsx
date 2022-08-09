@@ -265,7 +265,7 @@ const IndexPage = () => {
         </div>
       </section>
       <Footer />
-      <div style={{ marginTop: "600px" }}>
+      {/* <div style={{ marginTop: "600px" }}>
         <h1>Hello Next.js 👋</h1>
         <h2>{t("greeting")}</h2>
         <Link href={"/login"}>
@@ -288,7 +288,7 @@ const IndexPage = () => {
             );
           })}
         </p>
-      </div>
+      </div> */}
     </Layout>
   );
 };
