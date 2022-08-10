@@ -65,7 +65,7 @@ function Profile(props) {
             </div>
             {user?.social_network ? (
               <div>
-                <a href={user?.social_network} target="_blank">
+                <a href={user?.social_network} rel="noopener" target="_blank">
                   <svg
                     width="8"
                     height="17"
