@@ -45,7 +45,7 @@ const Login = () => {
       const res = await AuthService.login(data);
 
       // debugger;
-      dispatch(setCurrentUser({ user: {}, token: res.data.access_token }));
+      dispatch(setCurrentUser({ user: null, token: res.data.access_token }));
       setLoad(false);
       Router.push("/profile");
     } catch (e) {

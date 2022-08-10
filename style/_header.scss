@@ -28,6 +28,44 @@ header {
   top: 0px;
   width: 100%;
   z-index: 3;
+  .btn {
+    &_profile {
+      color: #fff !important;
+      height: 34px;
+      svg {
+        margin-right: 10px;
+        path {
+          fill: $brandColor !important ;
+        }
+      }
+    }
+  }
+  &.profile {
+    position: inherit;
+    background-color: #fff;
+    * {
+      color: $brandTextColor;
+    }
+    .btn {
+      color: $brandColor !important;
+      border-color: $brandColor !important;
+      &_profile {
+        color: #fff !important;
+        height: 34px;
+        &:hover {
+          color: #fff !important;
+        }
+        svg {
+          margin-right: 10px;
+        }
+      }
+    }
+    svg {
+      path {
+        fill: $brandTextColor;
+      }
+    }
+  }
 }
 
 .burgerMenu {
@@ -68,6 +106,14 @@ header {
         padding-top: 20px;
         padding-bottom: 30px;
         border-top: 1px solid #fff;
+      }
+    }
+  }
+  .headerWrapper.profile {
+    .navList {
+      background-color: #fff;
+      a {
+        color: $brandColor;
       }
     }
   }

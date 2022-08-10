@@ -1,0 +1,96 @@
+.profile {
+  &_wrapper {
+    max-width: 1300px;
+    margin: auto;
+    display: flex;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  &_sideBar {
+    width: 100%;
+    max-width: 300px;
+    padding-right: 50px;
+    border-right: 1px solid #e3e3e3;
+  }
+
+  &_mainContent {
+    width: calc(100% - 300px);
+    text-align: center;
+  }
+  &_userHeading {
+    border-bottom: 1px solid #e8e8e8;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    img {
+      width: 90px;
+      height: 90px;
+      border-radius: 90px;
+      object-fit: cover;
+      display: inline-block;
+      margin-right: 23px;
+    }
+    span {
+      color: $brandTextColor;
+    }
+  }
+  &_aboutMe {
+    margin-top: 20px;
+    padding-bottom: 50px;
+    border-bottom: 1px solid #e8e8e8;
+
+    p {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+  }
+  &_contacts {
+    margin-top: 30px;
+    border-bottom: 1px solid #e8e8e8;
+    margin-bottom: 30px;
+    div {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      svg {
+        width: 40px;
+        text-align: left;
+      }
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+  &_menu {
+    a {
+      text-decoration: none;
+      height: 31px;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      margin-bottom: 5px;
+      svg {
+        width: 35px;
+      }
+      &:hover {
+        background-color: #e2eeed;
+        color: $brandColor;
+        svg {
+          path {
+            stroke: $brandColor;
+          }
+          &.fillHover {
+            path {
+              stroke: inherit;
+              fill: $brandColor;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// .profile_Wrapper {
+//   max-width: 1300px;
+//   margin: auto;
+// }

@@ -1,11 +1,23 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import classnames from "classnames";
+import { useTypedSelector } from "../components/hooks/useTypeSelector";
 
-function Header(props) {
+interface IProps {
+  type?: "profile";
+}
+
+function Header({ type }: IProps) {
   const [openMenu, setOpenMenu] = useState(false);
+
+  const { user } = useTypedSelector((state) => state.profile);
+
   return (
-    <div className="headerWrapper">
+    <div
+      className={classnames("headerWrapper", {
+        [type]: type,
+      })}
+    >
       <header>
         <div className="container">
           <div className="row">
@@ -56,9 +68,31 @@ function Header(props) {
                   </div>
                 </li>
               </ul>
-              <Link href="/login">
-                <a className="btn btn-light btn-wight ml-3 ">ავტორიზაცია</a>
-              </Link>
+              {!user ? (
+                <Link href="/login">
+                  <a className="btn btn-light btn-wight ml-3 ">ავტორიზაცია</a>
+                </Link>
+              ) : (
+                <Link href="/profile">
+                  <a className="btn btn-primary btn_profile  ml-3 ">
+                    <svg
+                      width="15"
+                      height="17"
+                      viewBox="0 0 15 17"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M11.2857 4.25C11.2857 6.31738 9.595 8 7.5 8C5.405 8 3.71429 6.31738 3.71429 4.25C3.71429 2.18262 5.405 0.5 7.5 0.5C9.595 0.5 11.2857 2.18262 11.2857 4.25ZM7.5 10.5938C8.40559 10.5938 9.26764 10.4017 10.0471 10.0625H10.5C12.7122 10.0625 14.5 11.8414 14.5 14.025V15.4062C14.5 16.0061 14.0079 16.5 13.3929 16.5H1.60714C0.992055 16.5 0.5 16.0061 0.5 15.4062V14.025C0.5 11.8414 2.28781 10.0625 4.5 10.0625H4.95328C5.73481 10.4014 6.59374 10.5938 7.5 10.5938Z"
+                        stroke="white"
+                      />
+                    </svg>
+
+                    {user.firstname}
+                  </a>
+                </Link>
+              )}
+
               {!openMenu ? (
                 <svg
                   onClick={() => {

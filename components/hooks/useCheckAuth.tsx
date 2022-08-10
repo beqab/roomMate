@@ -13,8 +13,10 @@ export const useCheckAuth = (redirect = true) => {
     // debugger;
     if (localStorage.getItem("token")) {
       // debugger;
-
+      //
       if (!(window as any).hasCheckedAuth) {
+        // debugger;
+
         setAuthorizationToken(localStorage.getItem("token")!);
 
         if (!loadUser) {
@@ -23,7 +25,7 @@ export const useCheckAuth = (redirect = true) => {
             .then((res) => {
               (window as any).hasCheckedAuth = true;
               // debugger;
-              dispatch(setCurrentUser(res.data));
+              dispatch(setCurrentUser({ user: res.data }));
               setLoadUser(false);
             })
             .catch((err) => {
