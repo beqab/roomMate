@@ -69,12 +69,12 @@ const Login = () => {
   return (
     <div className="login">
       <ToastContainer />
-      <div className="headerWrapper">
-        <Header />
-      </div>
+
+      <Header />
+
       <div className="container loginSection w-25 mt-5">
         <div className="loginSection_container">
-          <div className="leftSide">
+          <div className="leftSide d-none d-md-flex ">
             <div>
               <Link href="/">
                 <a>Logo</a>

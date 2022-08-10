@@ -7,6 +7,7 @@
     margin-top: 100px;
     margin-bottom: 100px;
     width: 700px !important;
+    padding-top: 143px;
   }
   footer {
     border-top: 1px solid grey;
@@ -75,5 +76,24 @@
     align-items: center;
     justify-content: center;
     width: calc(100% - 260px);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .login .loginSection {
+    width: 100%;
+    max-width: 330px;
+  }
+  .loginSection_container .form_Wrapper {
+    // /* width: calc(100% - 260px); */
+    width: auto;
+    margin: auto;
+  }
+
+  .loginSection_container {
+    height: 434px;
+  }
+  .loginSection_container .form_title {
+    margin-bottom: 46px;
   }
 }

@@ -1,5 +1,5 @@
 .mainSection {
-  margin-top: 130px;
+  padding-top: 219px;
   padding-bottom: 600px;
   h1 {
     color: #fff;
@@ -267,4 +267,49 @@ h2 {
 
   line-height: 19px;
   font-weight: 400;
+}
+
+@media only screen and (max-width: 768px) {
+  .mainSection {
+    padding-top: 156px;
+    padding-bottom: 497px;
+    h1 {
+      font-size: 26px;
+      text-align: center;
+      line-height: 36px;
+    }
+    .btn {
+      margin: auto;
+    }
+  }
+  .stepsSection_card_Wrapper {
+    margin: auto;
+    margin-bottom: 74px;
+    margin-top: 0 !important;
+  }
+  .testimonialSection {
+    margin-top: 58px;
+  }
+  .testimonialSection_card {
+    margin: auto;
+    margin-bottom: 30px;
+    max-width: 320px;
+    width: 100%;
+  }
+  .faqSection {
+    padding-top: 188px;
+  }
+  .faq_question * {
+    font-size: 12px;
+  }
+  .faq_answer p {
+    font-size: 13px;
+  }
+  h2 {
+    font-size: 19px;
+  }
+  footer {
+    text-align: center;
+    padding-top: 31px;
+  }
 }

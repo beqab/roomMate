@@ -23,4 +23,52 @@ header {
 }
 .headerWrapper {
   background: $brandColorDark;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  z-index: 3;
+}
+
+.burgerMenu {
+  &_icon {
+    margin-left: 15px;
+    display: inline-block;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  header {
+    .btn {
+      font-size: 12px;
+      height: 28px;
+      border-radius: 7px;
+      position: relative;
+    }
+    .navList {
+      position: absolute;
+      flex-direction: column;
+      background: $brandColorDark;
+      width: 100%;
+      left: 0;
+      top: 68px;
+      justify-content: center;
+      align-items: center;
+      padding-top: 0px;
+      padding-bottom: 0px;
+      max-height: 0;
+      overflow: hidden;
+      transition: 0.3s;
+      li {
+        width: 200px;
+        margin-bottom: 15px;
+      }
+      &.open {
+        max-height: 300px;
+        padding-top: 20px;
+        padding-bottom: 30px;
+        border-top: 1px solid #fff;
+      }
+    }
+  }
 }

@@ -20,7 +20,7 @@ const IndexPage = () => {
         <section className="mainSection">
           <div className="container">
             <div className="row align-items-center">
-              <div className="col-6 ">
+              <div className="col-md-6 ">
                 <h1>
                   იპოვე ოთახის მეზობელი <br />
                   ხარჯების გაყოფის მიზნით

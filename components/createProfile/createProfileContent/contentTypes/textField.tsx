@@ -30,6 +30,7 @@ export const TextField = ({ data, setData, values }: IContentProps) => {
       <div className="createProfile_checkboxItem_wrapper">
         <input
           value={value[0] || ""}
+          // placeholder={data.title}
           onChange={(e) => {
             setValue([e.target.value]);
             setData({

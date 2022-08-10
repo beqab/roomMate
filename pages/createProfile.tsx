@@ -5,9 +5,8 @@ import Header from "../components/Header";
 function createProfile(props) {
   return (
     <div>
-      <div className="headerWrapper">
-        <Header />
-      </div>
+      <Header />
+
       <div className="createProfile d-flex align-items-center justify-content-center">
         <CreateProfileWrapper />
       </div>
