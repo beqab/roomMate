@@ -172,3 +172,19 @@
   border: 1px solid #19a463;
   border-radius: 4px;
 }
+
+@media only screen and (max-width: 768px) {
+  .createProfile_checkboxItem_wrapper label {
+    width: 100%;
+  }
+  .createProfile_wrapper {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .createProfile_heading {
+    font-size: 17px;
+  }
+  .createProfile_checkboxItem {
+    padding: 14px 10px;
+  }
+}
