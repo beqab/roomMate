@@ -1,15 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useCheckAuth } from "../components/hooks/useCheckAuth";
+import { useCheckAuth } from "../../hooks/useCheckAuth";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentUser, logout } from "../redux/action-creators";
-import { useTypedSelector } from "../components/hooks/useTypeSelector";
-import Header from "../components/Header";
+import { setCurrentUser, logout } from "../../../redux/action-creators";
+import { useTypedSelector } from "../../hooks/useTypeSelector";
+import Header from "../../Header";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Loader from "../components/common/loader";
+import Loader from "../../common/loader";
+import classnames from "classnames";
 
-function Profile(props) {
+const ProfileWrapper: React.FC<{}> = ({ children }) => {
   useCheckAuth();
   const { user } = useTypedSelector((state: any) => state.profile);
   console.log(user, "statestate");
@@ -88,8 +89,36 @@ function Profile(props) {
           <div className="profile_menu">
             <ul className="list-unstyled">
               <li>
-                <Link href="">
-                  <a>
+                <Link href="/profile">
+                  <a
+                    className={classnames({
+                      active: "/profile" === router.asPath,
+                    })}
+                  >
+                    <svg
+                      width="16"
+                      height="19"
+                      viewBox="0 0 16 19"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12.0714 4.53333C12.0714 6.75721 10.2528 8.56667 8 8.56667C5.74719 8.56667 3.92857 6.75721 3.92857 4.53333C3.92857 2.30945 5.74719 0.5 8 0.5C10.2528 0.5 12.0714 2.30945 12.0714 4.53333ZM8 11.2667C8.96368 11.2667 9.8809 11.0617 10.71 10.7H11.2C13.5778 10.7 15.5 12.6122 15.5 14.96V16.4333C15.5 17.0918 14.96 17.6333 14.2857 17.6333H1.71429C1.04005 17.6333 0.5 17.0918 0.5 16.4333V14.96C0.5 12.6122 2.42219 10.7 4.8 10.7H5.29042C6.12177 11.0615 7.03566 11.2667 8 11.2667Z"
+                        stroke="#5E666E"
+                      />
+                    </svg>
+                    ჩემი გვერდი
+                  </a>
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/profile/edit">
+                  <a
+                    className={classnames({
+                      active: "/profile/edit" === router.asPath,
+                    })}
+                  >
                     <svg
                       width="16"
                       height="17"
@@ -107,8 +136,12 @@ function Profile(props) {
                 </Link>
               </li>
               <li>
-                <Link href="">
-                  <a>
+                <Link href="/profile/balance">
+                  <a
+                    className={classnames({
+                      active: "/profile/balance" === router.asPath,
+                    })}
+                  >
                     <svg
                       className="fillHover"
                       width="16"
@@ -163,10 +196,10 @@ function Profile(props) {
             </ul>
           </div>
         </div>
-        <div className="profile_mainContent">main content</div>
+        <div className="profile_mainContent">{children}</div>
       </div>
     </div>
   );
-}
+};
 
-export default Profile;
+export default ProfileWrapper;

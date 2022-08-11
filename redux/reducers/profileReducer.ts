@@ -1,6 +1,13 @@
 import { EActionTypes } from "../action-types";
 import { TActions } from "../actions";
 
+interface IAnsweredAnswers {
+  answer_id: number;
+  id: number;
+  question_id: number;
+  user_id: number;
+}
+
 interface IUser {
   age?: number;
   email?: string | null;
@@ -10,6 +17,7 @@ interface IUser {
   payed?: boolean;
   phone?: string;
   social_network?: string;
+  answeredAnswers: IAnsweredAnswers[];
 }
 
 interface ISearchReducer {
