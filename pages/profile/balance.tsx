@@ -15,7 +15,7 @@ function Balance(props) {
   const [load, setLoad] = useState(false);
 
   return (
-    <ProfileWrapper>
+    <ProfileWrapper consumerPage="balance">
       <div className="balance_wrapper">
         <form className="balance_container">
           <h2>ბალანსის შევსება</h2>

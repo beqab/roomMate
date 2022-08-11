@@ -15,7 +15,7 @@ export const useCheckAuth = (redirect = true) => {
       // debugger;
       //
       if (!(window as any).hasCheckedAuth) {
-        // debugger;
+        debugger;
 
         setAuthorizationToken(localStorage.getItem("token")!);
 

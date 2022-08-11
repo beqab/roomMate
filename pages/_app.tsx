@@ -3,6 +3,7 @@ import { store } from "../redux/store";
 import { Provider } from "react-redux";
 import Head from "next/head";
 import "../style/style.scss";
+import "react-toastify/dist/ReactToastify.css";
 
 function MyApp({ Component, pageProps }) {
   return (

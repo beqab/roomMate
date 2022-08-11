@@ -17,5 +17,7 @@ export const backEndRoutes = {
   questions: {
     getQuestions: () => `${BASE_URL}​/questions`,
     saveAnswers: () => `${BASE_URL}​/users/save-answers`,
+    updateAnswers: () => `${BASE_URL}​/users/update-user-answers`,
+    checkPhone: () => `${BASE_URL}​/users/check-phone`,
   },
 };

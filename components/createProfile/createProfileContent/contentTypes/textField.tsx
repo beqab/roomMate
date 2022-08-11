@@ -26,21 +26,35 @@ export const TextField = ({ data, setData, values }: IContentProps) => {
   return (
     <div>
       <Heading text={data.title} />
-
       <div className="createProfile_checkboxItem_wrapper">
-        <input
-          value={value[0] || ""}
-          // placeholder={data.title}
-          onChange={(e) => {
-            setValue([e.target.value]);
-            setData({
-              question_id: data.id,
-              value: [e.target.value].filter(Boolean),
-            });
-          }}
-          type={data.type === "password" ? "password" : "text"}
-          className="form-control placeholder-active"
-        />
+        {data.type === "textarea" ? (
+          <textarea
+            value={value[0] || ""}
+            // placeholder={data.title}
+            onChange={(e) => {
+              setValue([e.target.value]);
+              setData({
+                question_id: data.id,
+                value: [e.target.value].filter(Boolean),
+              });
+            }}
+            className="form-control placeholder-active"
+          />
+        ) : (
+          <input
+            value={value[0] || ""}
+            // placeholder={data.title}
+            onChange={(e) => {
+              setValue([e.target.value]);
+              setData({
+                question_id: data.id,
+                value: [e.target.value].filter(Boolean),
+              });
+            }}
+            type={data.type === "password" ? "password" : "text"}
+            className="form-control placeholder-active"
+          />
+        )}
       </div>
     </div>
   );

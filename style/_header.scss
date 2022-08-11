@@ -85,6 +85,7 @@ header {
     }
     .navList {
       position: absolute;
+      z-index: 3;
       flex-direction: column;
       background: $brandColorDark;
       width: 100%;
@@ -102,7 +103,7 @@ header {
         margin-bottom: 15px;
       }
       &.open {
-        max-height: 300px;
+        max-height: 400px;
         padding-top: 20px;
         padding-bottom: 30px;
         border-top: 1px solid #fff;

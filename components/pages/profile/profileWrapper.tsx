@@ -10,7 +10,12 @@ import { useRouter } from "next/router";
 import Loader from "../../common/loader";
 import classnames from "classnames";
 
-const ProfileWrapper: React.FC<{}> = ({ children }) => {
+interface IProps {
+  consumerPage?: "edit" | "balance" | "profile";
+  // children: React.ReactNode;
+}
+
+const ProfileWrapper: React.FC<IProps> = ({ children, consumerPage }) => {
   useCheckAuth();
   const { user } = useTypedSelector((state: any) => state.profile);
   console.log(user, "statestate");
@@ -30,7 +35,11 @@ const ProfileWrapper: React.FC<{}> = ({ children }) => {
   return (
     <div>
       <Header type="profile" />
-      <div className="profile_wrapper">
+      <div
+        className={classnames("profile_wrapper", {
+          [consumerPage]: consumerPage,
+        })}
+      >
         <div className="profile_sideBar">
           <div className="profile_userHeading">
             <img src="https://www.portmelbournefc.com.au/wp-content/uploads/2022/03/avatar-1.jpeg" />

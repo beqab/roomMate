@@ -11,6 +11,12 @@
     max-width: 300px;
     padding-right: 50px;
     border-right: 1px solid #e3e3e3;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    height: max-he;
+    max-height: 100vh;
+    overflow: auto;
   }
 
   &_mainContent {
@@ -19,8 +25,8 @@
   }
   &_userHeading {
     border-bottom: 1px solid #e8e8e8;
-    padding-bottom: 30px;
-    padding-top: 30px;
+    padding-bottom: 10px;
+    padding-top: 10px;
     img {
       width: 90px;
       height: 90px;
@@ -35,7 +41,7 @@
   }
   &_aboutMe {
     margin-top: 20px;
-    padding-bottom: 50px;
+    padding-bottom: 20px;
     border-bottom: 1px solid #e8e8e8;
 
     p {
@@ -125,8 +131,60 @@
     color: $brandTextColor;
   }
 }
+.editQuestion_item {
+}
 
 // .profile_Wrapper {
 //   max-width: 1300px;
 //   margin: auto;
 // }
+
+@media only screen and (max-width: 768px) {
+  .profile {
+    &_wrapper {
+      flex-direction: column;
+      .createProfile_checkboxItem {
+        padding: 9px 10px;
+      }
+      &.balance,
+      &.edit {
+        .profile_aboutMe {
+          display: none;
+        }
+        .profile_contacts {
+          display: none;
+        }
+      }
+    }
+    &_aboutMe {
+      margin-top: 10px;
+      padding-bottom: 10px;
+    }
+    &_mainContent {
+      width: calc(100% - 0px);
+      .answersPreview {
+        margin-left: 0;
+        padding: 19px 17px 2px;
+        h2 {
+          font-size: 15px;
+          text-align: left;
+          line-height: 17px;
+        }
+      }
+    }
+    &_sideBar {
+      margin: auto;
+      padding-right: 0;
+      border-right: 0;
+      max-width: 100%;
+      position: inherit;
+    }
+    &_menu {
+      display: none;
+    }
+    &_userHeading img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+}

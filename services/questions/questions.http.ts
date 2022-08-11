@@ -6,8 +6,9 @@ import { backEndRoutes } from "../backend-routes";
 
 export type IQuestions = {
   id: number;
-  type: "choice" | "free-text" | "password" | "text";
+  type: "choice" | "free-text" | "password" | "text" | "textarea";
   title: string;
+  name?: string;
   description: string;
   user_property: boolean;
   position: number;
@@ -27,6 +28,17 @@ class _Questions {
 
   saveAnswers = (answers: any): AxiosPromise => {
     return axios.post(backEndRoutes.questions.saveAnswers(), answers);
+  };
+
+  updateAnswers = (answers: any): AxiosPromise => {
+    return axiosWithToken.patch(
+      backEndRoutes.questions.updateAnswers(),
+      answers
+    );
+  };
+
+  checkPhone = (phone: any): AxiosPromise => {
+    return axios.post(backEndRoutes.questions.checkPhone(), { phone });
   };
 }
 

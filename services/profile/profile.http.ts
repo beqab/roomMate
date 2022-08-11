@@ -5,7 +5,7 @@ import { backEndRoutes } from "../backend-routes";
 
 class _ProfileService {
   getUser = (token: string) => {
-    return axios.get(backEndRoutes.profile.getUser(token));
+    return axiosWithToken.get(backEndRoutes.profile.getUser(token));
   };
 }
 

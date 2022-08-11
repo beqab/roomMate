@@ -97,7 +97,23 @@ function CreateProfileWrapper(props) {
           progress: undefined,
         });
       } else {
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
+        if (
+          questions[currentQuestionIndex].name === "phone" &&
+          answersContainer[currentQuestionIndex + 1].length > 0
+        ) {
+          // console.log(answersContainer[currentQuestionIndex + 1] as []);
+          // let [phone] = answersContainer[currentQuestionIndex + 1] as string[];
+          // Questions.checkPhone(phone)
+          //   .then((res) => {
+          //     debugger;
+          //   })
+          //   .catch((err) => {
+          //     console.log(err.response);
+          //   });
+          setCurrentQuestionIndex(currentQuestionIndex + 1);
+        } else {
+          setCurrentQuestionIndex(currentQuestionIndex + 1);
+        }
       }
     }
   };

@@ -9,9 +9,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Loader from "../../components/common/loader";
 import ProfileWrapper from "../../components/pages/profile/profileWrapper";
+import QuestionEdit from "../../components/pages/profile/questionEdit";
 
 function Edit(props) {
-  return <ProfileWrapper>profile Edit</ProfileWrapper>;
+  return (
+    <ProfileWrapper consumerPage={"edit"}>
+      <QuestionEdit />
+    </ProfileWrapper>
+  );
 }
 
 export default Edit;

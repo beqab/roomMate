@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import Link from "next/link";
 import classnames from "classnames";
 import { useTypedSelector } from "../components/hooks/useTypeSelector";
+import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/action-creators";
 
 interface IProps {
   type?: "profile";
@@ -10,7 +13,17 @@ interface IProps {
 function Header({ type }: IProps) {
   const [openMenu, setOpenMenu] = useState(false);
 
+  const router = useRouter();
+
+  const dispatch = useDispatch();
+
   const { user } = useTypedSelector((state) => state.profile);
+
+  const signOut = () => {
+    dispatch(logout());
+    // router.push("/login");
+    window.location.replace("/login");
+  };
 
   return (
     <div
@@ -35,6 +48,48 @@ function Header({ type }: IProps) {
                   }
                 )}
               >
+                <li
+                  className={classnames("d-block d-md-none", {
+                    ["d-none"]: !user,
+                  })}
+                >
+                  <Link href="/profile/edit">
+                    <a
+                      className={classnames({
+                        active: "/profile/edit" === router.asPath,
+                      })}
+                    >
+                      {/* <svg
+                        width="16"
+                        height="17"
+                        viewBox="0 0 16 17"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M13.6237 9.24274L13.5903 9.52086L13.8101 9.69457L15.4674 11.0045L13.8972 13.7228L11.9306 12.9322L11.6682 12.8267L11.4425 12.9973C11.0495 13.2945 10.6241 13.5488 10.1665 13.7355L9.90065 13.844L9.86042 14.1284L9.56319 16.2288H6.42652L6.1293 14.1284L6.08906 13.844L5.82318 13.7355C5.36416 13.5481 4.94953 13.3038 4.54865 12.9984L4.32269 12.8262L4.05913 12.9322L2.09247 13.7228L0.522564 11.0049L2.19792 9.69636L2.43049 9.51471L2.38386 9.22331C2.34724 8.99441 2.32843 8.74323 2.32843 8.5C2.32843 8.26845 2.35537 8.01905 2.39415 7.7767L2.44077 7.4853L2.20821 7.30365L0.53285 5.99509L2.10276 3.27719L4.06941 4.06781L4.33185 4.17331L4.55747 4.00272C4.95052 3.70553 5.37595 3.45125 5.83347 3.26451L6.09935 3.15599L6.13958 2.87164L6.43681 0.77124H9.57348L9.8707 2.87164L9.91094 3.15599L10.1768 3.26451C10.6358 3.45186 11.0505 3.69617 11.4514 4.00161L11.6773 4.17376L11.9409 4.06781L13.9075 3.27719L15.4774 5.99509L13.8021 7.30365L13.5695 7.4853L13.6161 7.7767C13.6528 8.00606 13.6716 8.247 13.6716 8.5C13.6716 8.75313 13.6528 9.00008 13.6237 9.24274ZM4.41421 8.5C4.41421 10.4733 6.02668 12.0858 8 12.0858C9.97332 12.0858 11.5858 10.4733 11.5858 8.5C11.5858 6.52668 9.97332 4.91422 8 4.91422C6.02668 4.91422 4.41421 6.52668 4.41421 8.5Z"
+                          stroke="#5E666E"
+                        />
+                      </svg> */}
+                      პროფილის რედაქტირება
+                    </a>
+                  </Link>
+                </li>
+                <li
+                  className={classnames("d-block d-md-none", {
+                    ["d-none"]: !user,
+                  })}
+                >
+                  <Link href="/profile/balance">
+                    <a
+                      className={classnames({
+                        active: "/profile/balance" === router.asPath,
+                      })}
+                    >
+                      ბალანსის შევსება
+                    </a>
+                  </Link>
+                </li>
                 <li>
                   <Link href="/">
                     <a>მთავარი</a>
@@ -66,6 +121,45 @@ function Header({ type }: IProps) {
                     </svg>
                     <span>Eng</span>
                   </div>
+                </li>
+
+                <li
+                  className={classnames("d-block d-md-none", {
+                    ["d-none"]: !user,
+                  })}
+                >
+                  <a href="#" onClick={signOut}>
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M10 2L12.6667 2C13.0203 2 13.3594 2.14047 13.6095 2.39052C13.8595 2.64057 14 2.97971 14 3.33333L14 12.6667C14 13.0203 13.8595 13.3594 13.6095 13.6095C13.3594 13.8595 13.0203 14 12.6667 14L10 14"
+                        stroke="#5E666E"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M5.33325 4.66665L1.99992 7.99998L5.33325 11.3333"
+                        stroke="#5E666E"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M2 8L10 8"
+                        stroke="#5E666E"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    გამოსვლა
+                  </a>
                 </li>
               </ul>
               {!user ? (

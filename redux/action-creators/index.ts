@@ -10,8 +10,11 @@ export const setCurrentUser = (user: any) => {
   // debugger;
   if (user?.token) {
     window.localStorage.setItem("token", user.token);
+    setAuthorizationToken(user.token);
+  } else {
+    if (window.localStorage.getItem("token"))
+      setAuthorizationToken(window.localStorage.getItem("token"));
   }
-  setAuthorizationToken(user.token);
   if (user.user) {
     window.localStorage.setItem("user", JSON.stringify(user.user));
     return {

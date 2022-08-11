@@ -31,6 +31,7 @@ const Content: React.FC<IContentProps> = ({ data, setData, values }) => {
     //   return <PasswordField data={data} />;
 
     case "text":
+    case "textarea":
     case "password":
       return (
         <TextField values={values} setData={(d) => setData(d)} data={data} />
