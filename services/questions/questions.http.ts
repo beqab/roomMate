@@ -13,6 +13,8 @@ export type IQuestions = {
   user_property: boolean;
   position: number;
   is_multiple?: boolean;
+  is_searchable?: boolean;
+  searchable_title?: string;
   answers: {
     id: number;
     title: string;
