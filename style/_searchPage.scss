@@ -2,3 +2,38 @@
   min-height: 100vh;
   padding-top: 70px;
 }
+
+.search {
+  &_sideBar {
+    max-width: 300px;
+  }
+}
+
+.search_item {
+  &-choice {
+  }
+  .selectBtn {
+    background: #e3e3e3;
+    border-radius: 6px;
+    font-size: 14px;
+    padding: 8px 10px;
+    cursor: pointer;
+    position: relative;
+    .optionsWrapper {
+      padding: 10px;
+      position: absolute;
+      left: 0;
+      top: 35px;
+      max-height: 400px;
+      height: 100%;
+      background: #e3e3e3;
+      min-height: 200px;
+      width: 100%;
+      z-index: 2;
+      overflow: auto;
+
+      //   min-height: 300px;
+    }
+  }
+}
+///

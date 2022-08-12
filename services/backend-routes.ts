@@ -13,6 +13,7 @@ export const backEndRoutes = {
   },
   profile: {
     getUser: (token: string) => `${BASE_URL}​/auth/profile`,
+    search: () => `${BASE_URL}​/users/search`,
   },
   questions: {
     getQuestions: () => `${BASE_URL}​/questions`,

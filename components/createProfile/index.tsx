@@ -24,6 +24,7 @@ function CreateProfileWrapper(props) {
         console.log(res);
         setQuestions(res.data.sort((a, b) => a.position - b.position));
         setLoadQuestions(false);
+        // setCurrentQuestionIndex(res.data[0].id);
       })
       .catch((err) => {
         console.log(err);
@@ -82,9 +83,10 @@ function CreateProfileWrapper(props) {
       }
 
       if (
-        !answersContainer[currentQuestionIndex + 1] ||
-        !answersContainer[currentQuestionIndex + 1].length
+        !answersContainer[questions[currentQuestionIndex].id] ||
+        !answersContainer[questions[currentQuestionIndex].id].length
       ) {
+        // debugger;
         console.log(answersContainer);
 
         toast.error("მოცემული ველი აუცილებელია", {
@@ -99,18 +101,34 @@ function CreateProfileWrapper(props) {
       } else {
         if (
           questions[currentQuestionIndex].name === "phone" &&
-          answersContainer[currentQuestionIndex + 1].length > 0
+          answersContainer[questions[currentQuestionIndex].id].length > 0
         ) {
-          // console.log(answersContainer[currentQuestionIndex + 1] as []);
-          // let [phone] = answersContainer[currentQuestionIndex + 1] as string[];
-          // Questions.checkPhone(phone)
-          //   .then((res) => {
-          //     debugger;
-          //   })
-          //   .catch((err) => {
-          //     console.log(err.response);
-          //   });
-          setCurrentQuestionIndex(currentQuestionIndex + 1);
+          console.log(
+            answersContainer[questions[currentQuestionIndex].id] as []
+          );
+          let [phone] = answersContainer[
+            questions[currentQuestionIndex].id
+          ] as string[];
+          Questions.checkPhone(phone)
+            .then((res) => {
+              // debugger;
+              if (res.data.exists) {
+                toast.error("მოცემული ტელეფონის ნომერი უკვე გამოყენებულია", {
+                  position: "top-right",
+                  autoClose: 3000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
+              } else {
+                setCurrentQuestionIndex(currentQuestionIndex + 1);
+              }
+            })
+            .catch((err) => {
+              console.log(err.response);
+            });
         } else {
           setCurrentQuestionIndex(currentQuestionIndex + 1);
         }
