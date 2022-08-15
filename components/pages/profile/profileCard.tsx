@@ -12,15 +12,17 @@ const ProfileCard: React.FC<IProps> = ({
   suitableDistricts,
   suitablePrices,
   id,
+  favourite_id,
   isSaved,
   about_me,
   updateAddRemove,
 }) => {
-  const addRemoveFromFavorites = (id: number, saveId: boolean) => {
-    ProfileService.addRemoveFavorites(id)
+  const addRemoveFromFavorites = () => {
+    let requestId = favourite_id ? favourite_id : id;
+    ProfileService.addRemoveFavorites(requestId)
       .then((res) => {
         console.log(res);
-        updateAddRemove(id, saveId);
+        updateAddRemove(requestId, isSaved);
       })
       .catch((err) => {
         console.log(err);
@@ -72,7 +74,7 @@ const ProfileCard: React.FC<IProps> = ({
         <div className="d-flex pointer ">
           <div
             onClick={() => {
-              addRemoveFromFavorites(id, isSaved);
+              addRemoveFromFavorites();
             }}
             className="mx-3 "
           >
@@ -89,7 +91,7 @@ const ProfileCard: React.FC<IProps> = ({
                 fill={isSaved ? "red" : "#fff"}
               />
             </svg>
-            შენახვა
+            {isSaved ? "წაშლა" : " შენახვა"}
           </div>
           <Link href={`/user/${id}`}>
             <a>მეტის ნახვა</a>

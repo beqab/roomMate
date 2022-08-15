@@ -13,6 +13,7 @@ export interface ISearchItems {
   users_is_locked_communication: boolean;
   isSaved: boolean;
   about_me: string;
+  favourite_id?: number;
 }
 
 interface IMeta {

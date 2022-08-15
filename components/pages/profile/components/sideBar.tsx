@@ -17,6 +17,7 @@ interface ISidebar {
 }
 
 const SideBar: React.FC<ISidebar> = (props) => {
+  console.log(props, "propspropsprops");
   const router = useRouter();
   const [status, setStatus] = useState<"load" | boolean>(false);
 

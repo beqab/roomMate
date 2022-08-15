@@ -21,10 +21,22 @@ const Favorites = () => {
       });
   }, []);
 
+  const updateAddRemove = (id, saveId) => {
+    // debugger;
+    setFavoritesList(favoritesList.filter((el) => el.favourite_id !== id));
+  };
+
   return (
     <div className="mt-3">
       {favoritesList?.map((el) => {
-        return <ProfileCard {...el} />;
+        return (
+          <ProfileCard
+            key={el.favourite_id}
+            {...el}
+            isSaved={true}
+            updateAddRemove={updateAddRemove}
+          />
+        );
       })}
     </div>
   );

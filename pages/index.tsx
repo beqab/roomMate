@@ -7,10 +7,13 @@ import Header from "../components/Header";
 import Faq from "../components/pages/home/faq";
 import Contact from "../components/pages/home/contact";
 import Footer from "../components/footer";
+import { useTypedSelector } from "../components/hooks/useTypeSelector";
 
 const IndexPage = () => {
   let { t } = useTranslation("common");
   const router = useRouter();
+
+  const { user } = useTypedSelector((state) => state.profile);
 
   console.log(router.locales, "ttttttttt");
   return (
@@ -25,7 +28,7 @@ const IndexPage = () => {
                   იპოვე ოთახის მეზობელი <br />
                   ხარჯების გაყოფის მიზნით
                 </h1>
-                <Link href="/createProfile">
+                <Link href={user ? "/search" : "/createProfile"}>
                   <a className="btn btn-primary ">იპოვე შენი ოთახის მეზობელი</a>
                 </Link>
               </div>

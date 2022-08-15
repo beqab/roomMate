@@ -96,7 +96,7 @@ function Header({ type }: IProps) {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/">
+                  <Link href={user ? "/search" : "/createProfile"}>
                     <a>იპოვე ოთახის მეზობელი</a>
                   </Link>
                 </li>

@@ -8,11 +8,14 @@ import {
 import classNames from "classnames";
 import { Button } from "../../../common/form";
 import { ToastContainer, toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 const SentNotification = () => {
   const [sentNotifications, setSentNotifications] = useState<
     INotificationSent[] | null
   >(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     ProfileService.getSentNotifications()
@@ -54,15 +57,44 @@ const SentNotification = () => {
           <div key={i} className="col-12 col-sm-12 col-md-4">
             <ToastContainer />
             <NotificationsCard
-              text={`თქვენ გაგზავნილი გაქვთ ${el.receiver_firstname} ${el.receiver_lastname} - სთან კონტაქტების ნახვის მოთხოვნა`}
+              text={
+                el.status === 1
+                  ? `თქვენ გაგზავნილი გაქვთ ${el.receiver_firstname} ${el.receiver_lastname} - სთან კონტაქტების ნახვის მოთხოვნა`
+                  : el.status === 2
+                  ? `${el.receiver_firstname} ${el.receiver_lastname} - დაეთანხმა თქვენ მოთხოვნას `
+                  : el.status === 3
+                  ? `${el.receiver_firstname} ${el.receiver_lastname} - მ უარყო თქვენი მოთხოვნას `
+                  : null
+              }
               id={el.receiver_id}
             >
-              <Button
-                onClick={() => handleRemoveRequest(el.receiver_id)}
-                className="btn btn-light w-100"
-              >
-                მოთხოვნის გაუქმება
-              </Button>
+              {el.status === 1 ? (
+                <Button
+                  onClick={() => handleRemoveRequest(el.receiver_id)}
+                  className="btn btn-light w-100"
+                >
+                  მოთხოვნის გაუქმება
+                </Button>
+              ) : el.status === 2 ? (
+                <Button
+                  onClick={() => {
+                    router.push("/user/" + el.receiver_id);
+                  }}
+                  className="btn btn-success w-100"
+                >
+                  პროფილის ნახვა
+                </Button>
+              ) : el.status === 3 ? (
+                <Button
+                  onClick={() => {
+                    router.push("/user/" + el.receiver_id);
+                  }}
+                  // onClick={() => handleRemoveRequest(el.receiver_id)}
+                  className="btn btn-danger w-100"
+                >
+                  პროფილის ნახვა
+                </Button>
+              ) : null}
             </NotificationsCard>
           </div>
         );
