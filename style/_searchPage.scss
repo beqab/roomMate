@@ -1,15 +1,36 @@
 .searchPage {
   min-height: 100vh;
   padding-top: 70px;
+  .container {
+    max-width: 1000px;
+  }
+  .searchBtnWrapper {
+    border-top: 1px solid #e3e3e3;
+    padding-top: 25px;
+    // margin-top: 25px;
+  }
 }
 
 .search {
   &_sideBar {
     max-width: 300px;
+    width: 100%;
+    padding-right: 20px;
+    border-right: 1px solid #e3e3e3;
+  }
+  &_mainContent {
+    max-width: calc(100vh - 320px);
+    width: 100%;
+    margin-left: 20px;
   }
 }
 
 .search_item {
+  margin-bottom: 20px;
+  font-size: 14px;
+  > label {
+    margin-bottom: 4px;
+  }
   &-choice {
   }
   .selectBtn {
@@ -33,6 +54,55 @@
       overflow: auto;
 
       //   min-height: 300px;
+    }
+  }
+}
+
+.userCard {
+  &_wrapper {
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0px 7px 16px rgba(170, 170, 170, 0.25);
+    border-radius: 6px;
+    padding: 18px 20px;
+    max-width: 560px;
+    width: 100%;
+  }
+  &_body {
+    margin-top: 16px;
+    margin-bottom: 14px;
+    img {
+      width: 100px;
+      height: 100px;
+      border-radius: 3px;
+    }
+    p {
+      font-size: 14px;
+      margin-left: 15px;
+      line-height: 19px;
+      height: 100px;
+      overflow: hidden;
+      border-top: 1px solid #e3e3e3;
+      border-bottom: 1px solid #e3e3e3;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      margin-bottom: 0;
+      width: 100%;
+    }
+  }
+  &_footer {
+    * {
+      font-size: 12px;
+    }
+    svg {
+      margin-right: 9px;
+    }
+    &_locations {
+      overflow: hidden;
+      width: 290px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: inline-block;
     }
   }
 }

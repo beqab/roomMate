@@ -50,6 +50,7 @@ const Choice: React.FC<IProps> = ({ data }) => {
 
   return (
     <div
+      key={data.id}
       onClick={(e) => {
         e.stopPropagation();
       }}
@@ -58,12 +59,33 @@ const Choice: React.FC<IProps> = ({ data }) => {
       <label>{data.searchable_title}</label>
       <div
         onClick={() => {
-          setOpenSearchItemId(data.id);
+          if (openSearchItemId === data.id) {
+            setOpenSearchItemId(null);
+          } else {
+            setOpenSearchItemId(data.id);
+          }
         }}
         className="selectBtn"
       >
-        არჩევა
+        <div className="d-flex justify-content-between align-items-center">
+          <span>არჩევა</span>
+          <svg
+            width="14"
+            height="8"
+            viewBox="0 0 14 8"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12.6909 0.377512C12.5004 0.204384 12.2095 0.204227 12.0188 0.377148L7.33585 4.62308C7.14528 4.79587 6.85472 4.79587 6.66415 4.62308L1.98121 0.377148C1.79049 0.204227 1.49965 0.204385 1.30912 0.377514L0.407246 1.19701C0.188912 1.3954 0.188912 1.73871 0.407246 1.93711L6.66375 7.62215C6.85443 7.79542 7.14557 7.79542 7.33625 7.62215L13.5928 1.93711C13.8111 1.73871 13.8111 1.3954 13.5928 1.19701L12.6909 0.377512Z"
+              fill="#7D7D7D"
+            />
+          </svg>
+        </div>
         <div
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
           className={classnames("optionsWrapper", {
             ["d-block"]: openSearchItemId === data.id,
             ["d-none"]: openSearchItemId !== data.id,

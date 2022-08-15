@@ -29,35 +29,36 @@ export default function Radio({ data, setData, values }: IRadioProps) {
       <Heading text={data.title} />
       <div className="createProfile_checkboxItem_wrapper">
         {data.answers.map((item, i) => {
+          let answerId = item.real_id ? item.real_id : item.id;
           return (
             <Checkbox
               key={item.id}
               setValue={(v) => {
-                if (value.includes(item.id)) {
-                  setValue(value.filter((id) => id !== item.id));
+                if (value.includes(answerId)) {
+                  setValue(value.filter((id) => id !== answerId));
                   setData({
                     question_id: item.question_id,
-                    value: value.filter((id) => id !== item.id),
+                    value: value.filter((id) => id !== answerId),
                   });
                 } else {
                   if (data.is_multiple) {
-                    setValue([...value, item.id]);
+                    setValue([...value, answerId]);
                     setData({
                       question_id: item.question_id,
-                      value: [...value, item.id],
+                      value: [...value, answerId],
                     });
                   } else {
-                    setValue([item.id]);
+                    setValue([answerId]);
                     setData({
                       question_id: item.question_id,
-                      value: [item.id],
+                      value: [answerId],
                     });
                   }
                 }
               }}
               label={item.title}
-              id={item.id}
-              selected={value.includes(item.id)}
+              id={answerId}
+              selected={value.includes(answerId)}
             />
           );
         })}

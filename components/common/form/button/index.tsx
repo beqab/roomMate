@@ -6,16 +6,18 @@ interface IButton {
   children: React.ReactNode;
   loading?: boolean;
   type?: "submit" | "button" | "reset";
+  disabled?: boolean;
 }
 
 export const Button: React.FC<IButton> = ({
   children,
   type = "submit",
   loading,
+  disabled,
   ...rest
 }) => {
   return (
-    <button disabled={loading} type={type} {...rest}>
+    <button disabled={loading || disabled} type={type} {...rest}>
       {loading ? "load..." : children}
     </button>
   );

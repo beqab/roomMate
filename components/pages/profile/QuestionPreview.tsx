@@ -4,11 +4,16 @@ import {
   IQuestions,
 } from "../../../services/questions/questions.http";
 import { useTypedSelector } from "../../hooks/useTypeSelector";
+import { IUserProfile } from "../../../services/profile/profile.http";
 
-const QuestionPreview = () => {
+interface IProps {
+  userProfile: IUserProfile;
+}
+
+const QuestionPreview: React.FC<IProps> = ({
+  userProfile: { answeredAnswers },
+}) => {
   const [questions, setQuestions] = useState<IQuestions[] | null>(null);
-
-  const { answeredAnswers } = useTypedSelector((state) => state.profile.user);
 
   useEffect(() => {
     Questions.getQuestions()

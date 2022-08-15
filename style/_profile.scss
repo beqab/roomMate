@@ -134,6 +134,54 @@
 .editQuestion_item {
 }
 
+.profile_tab {
+  background-color: #fff;
+  box-shadow: 0px 7px 16px rgba(170, 170, 170, 0.25);
+  border-radius: 6px;
+  padding: 4px;
+  a {
+    padding: 6px 20px;
+  }
+  a.active {
+    background-color: $brandColor;
+    color: #fff;
+  }
+}
+
+.notification {
+  &_card {
+    // margin: 20px;
+    padding: 10px;
+    background: #ffffff;
+    box-shadow: 0px 7px 16px rgba(160, 160, 160, 0.25);
+    border-radius: 6px;
+    width: 310px;
+    margin-bottom: 15px;
+
+    &.receive {
+      background: $brandColorLight;
+    }
+    img {
+      width: 79px;
+      height: 73px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+    p {
+      font-size: 14px;
+      padding-left: 15px;
+      padding-top: 8px;
+    }
+    button {
+      height: 34px;
+      font-size: 13px;
+    }
+  }
+
+  &_footer {
+    padding-top: 19px;
+  }
+}
 // .profile_Wrapper {
 //   max-width: 1300px;
 //   margin: auto;

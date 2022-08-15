@@ -14,6 +14,14 @@ export const backEndRoutes = {
   profile: {
     getUser: (token: string) => `${BASE_URL}​/auth/profile`,
     search: () => `${BASE_URL}​/users/search`,
+    getUserById: (id: string) => `${BASE_URL}​/users/profile/${id}`,
+    getFavorites: () => `${BASE_URL}/users/favourites`,
+    getSentNotifications: () => `${BASE_URL}/users/sent-requests`,
+    getReceivedNotifications: () => `${BASE_URL}/users/received-requests`,
+    addRemoveFavorites: () => `${BASE_URL}/users/add-or-remove-favourites`,
+    addContactRequest: (id: number) => `${BASE_URL}​/users/send-request/${id}`,
+    removeContactRequest: (id: number) =>
+      `${BASE_URL}​/users/sent-request/${id}`,
   },
   questions: {
     getQuestions: () => `${BASE_URL}​/questions`,

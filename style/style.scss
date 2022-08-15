@@ -23,6 +23,10 @@ body {
   }
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .btn {
   &:focus {
     box-shadow: none;
@@ -34,4 +38,17 @@ body {
       background-color: $brandColor;
     }
   }
+}
+.pl-3 {
+  padding-left: 10px;
+}
+.pr-3 {
+  padding-right: 10px;
+}
+
+.ml-3 {
+  margin-left: 10px;
+}
+.mr-3 {
+  margin-right: 10px;
 }

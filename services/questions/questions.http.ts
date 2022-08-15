@@ -15,8 +15,9 @@ export type IQuestions = {
   is_multiple?: boolean;
   is_searchable?: boolean;
   searchable_title?: string;
-  answers: {
+  answers?: {
     id: number;
+    real_id: number;
     title: string;
     question_id: number;
     active: boolean;

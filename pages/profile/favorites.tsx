@@ -12,15 +12,15 @@ import ProfileWrapper from "../../components/pages/profile/profileWrapper";
 import { Questions, IQuestions } from "../../services/questions/questions.http";
 import QuestionPreview from "../../components/pages/profile/QuestionPreview";
 import ProfileTab from "../../components/pages/profile/components/profileTab";
-import Notifications from "../../components/pages/profile/notifications";
+import FavoritesContent from "../../components/pages/profile/favorites";
 
-const Profile = (props) => {
+const Favorites = (props) => {
   return (
     <ProfileWrapper>
       <ProfileTab />
-      <Notifications />
+      <FavoritesContent />
     </ProfileWrapper>
   );
 };
 
-export default Profile;
+export default Favorites;
