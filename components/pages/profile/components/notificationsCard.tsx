@@ -5,6 +5,7 @@ import {
   INotificationSent,
 } from "../../../../services/profile/profile.http";
 import classNames from "classnames";
+import Link from "next/link";
 
 interface IProps {
   text: string;
@@ -20,7 +21,11 @@ const NotificationsCard: React.FC<IProps> = ({ text, id, children, type }) => {
       })}
     >
       <div className="notification_body d-flex">
-        <img src="/imgs/download.jpg" />
+        <Link href={"/user/" + id}>
+          <a>
+            <img src="/imgs/download.jpg" />
+          </a>
+        </Link>
         <p>
           {text}
           {/* {type === "sent"

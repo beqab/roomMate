@@ -22,7 +22,7 @@ const Favorites = () => {
   }, []);
 
   return (
-    <div>
+    <div className="mt-3">
       {favoritesList?.map((el) => {
         return <ProfileCard {...el} />;
       })}

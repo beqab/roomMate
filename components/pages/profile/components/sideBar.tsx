@@ -28,6 +28,8 @@ const SideBar: React.FC<ISidebar> = (props) => {
         setStatus(true);
       })
       .catch((err) => {
+        setStatus(false);
+
         console.log(err);
       });
   };

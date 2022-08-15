@@ -37,7 +37,7 @@ const Notifications = () => {
           გაგზავნილი
         </span>
       </div>
-      <div className="container">
+      <div className="container p-0">
         <div className="row">
           {notificationType === "receive" ? (
             <ReceiveNotification />

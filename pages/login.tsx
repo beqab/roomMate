@@ -97,7 +97,7 @@ const Login = () => {
                 Label="მობილურის ნომერი"
               >
                 <Input
-                  type="text"
+                  type="number"
                   name={"phone"}
                   placeholder="579121212"
                   hasError={!!errors?.phone}

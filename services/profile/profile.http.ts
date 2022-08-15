@@ -8,7 +8,7 @@ export interface ISearchItems {
   firstname: string;
   id: number;
   payed: boolean;
-  suitableDistincts: string[];
+  suitableDistricts: string[];
   suitablePrices: string[];
   users_is_locked_communication: boolean;
   isSaved: boolean;
@@ -104,6 +104,16 @@ class _ProfileService {
   deleteContactRequest = (id: number): AxiosPromise<IUserProfile> => {
     return axiosWithToken.delete(
       backEndRoutes.profile.removeContactRequest(id)
+    );
+  };
+
+  approveRejectContact = (
+    id: number,
+    data: { senderId: number; answer: 2 | 3 }
+  ): AxiosPromise<any> => {
+    return axiosWithToken.post(
+      backEndRoutes.profile.approveRejectContact(id),
+      data
     );
   };
 }

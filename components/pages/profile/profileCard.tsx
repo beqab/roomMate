@@ -9,7 +9,7 @@ interface IProps extends ISearchItems {
 const ProfileCard: React.FC<IProps> = ({
   age,
   firstname,
-  suitableDistincts,
+  suitableDistricts,
   suitablePrices,
   id,
   isSaved,
@@ -66,7 +66,7 @@ const ProfileCard: React.FC<IProps> = ({
             />
           </svg>
           <span className="pl-2 userCard_footer_locations ">
-            {suitableDistincts && suitableDistincts.join(", ")}
+            {suitableDistricts && suitableDistricts.join(", ")}
           </span>
         </div>
         <div className="d-flex pointer ">
