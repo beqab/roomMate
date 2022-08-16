@@ -200,4 +200,98 @@
     right: 0;
   }
 }
+.searchMenu_btn {
+  width: 30px;
+  height: 30px;
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 18px;
+}
 ///
+///
+
+@media only screen and (max-width: 768px) {
+  .locationSearch_input {
+    width: calc(100vw - 176px);
+  }
+
+  .search_item-choice .inputsWrapper input {
+    padding: 5px 8px;
+  }
+  .userCard_body {
+    margin-top: 6px;
+    margin-bottom: 8px;
+  }
+
+  .userCard_wrapper {
+    margin-bottom: 15px;
+
+    padding: 5px 10px;
+    * {
+      font-size: 11px !important;
+    }
+    .userCard_footer_locations {
+      width: 125px;
+    }
+    .userCard_body p {
+      font-size: 14px;
+      margin-left: 12px;
+      line-height: 12px;
+      height: 100px;
+      padding-top: 6px;
+      padding-bottom: 1px;
+    }
+  }
+
+  .search_sideBar {
+    .searchCancel {
+      font-size: 11px !important;
+      background-color: #f5f2f2;
+    }
+    display: none;
+    position: absolute;
+    background: #fff;
+    padding: 10px;
+    width: 100vw;
+    max-width: 100vw;
+    max-width: calc(100vw - 40px);
+    top: 150px;
+    .search_item .selectBtn {
+      background: #e3e3e3;
+      border-radius: 6px;
+      font-size: 14px;
+      padding: 5px 8px;
+    }
+    .search_item {
+      margin-bottom: 10px;
+    }
+    * {
+      font-size: 12px;
+    }
+    &.openSearchMenu {
+      display: block;
+    }
+    .search_item > label {
+      font-size: 12px;
+    }
+  }
+  .searchPage .container {
+  }
+  .search_mainContent {
+    margin: auto;
+  }
+  .locationSearch_input {
+    height: 31px;
+    font-size: 12px;
+    padding: 0px 10px;
+    display: flex;
+    align-items: center;
+  }
+  .locationSearch_button {
+    height: 31px;
+  }
+}

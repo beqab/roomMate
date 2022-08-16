@@ -7,9 +7,10 @@ import { Button } from "../../../common/form";
 interface IProps {
   data: IQuestions;
   setValue?: (val: any) => void;
+  searchHandler: () => void;
 }
 
-const LocationSearch: React.FC<IProps> = ({ data }) => {
+const LocationSearch: React.FC<IProps> = ({ data, searchHandler }) => {
   const {
     openSearchItemId,
     setOpenSearchItemId,
@@ -66,9 +67,11 @@ const LocationSearch: React.FC<IProps> = ({ data }) => {
           className="locationSearch_input"
           placeholder="მოძებნე სასურველი უბანი"
         >
-          {!searchObject[data.id].length
+          {!data?.id
+            ? null
+            : !searchObject[data.id]?.length
             ? "მოძებნე სასურველი უბანი"
-            : data.answers.map((el) => {
+            : data?.answers.map((el) => {
                 if (searchObject[el.question_id]) {
                   if (searchObject[el.question_id].find((it) => it === el.id)) {
                     return (
@@ -102,7 +105,10 @@ const LocationSearch: React.FC<IProps> = ({ data }) => {
                 }
               })}
         </div>
-        <Button className="btn btn-primary locationSearch_button">
+        <Button
+          onClick={searchHandler}
+          className="btn btn-primary locationSearch_button"
+        >
           <svg
             width="18"
             height="18"

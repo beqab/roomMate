@@ -12,11 +12,13 @@ import ProfileCard from "../components/pages/profile/profileCard";
 import Range from "../components/pages/search/searchItems/range";
 import { Button } from "../components/common/form";
 import LocationSearch from "../components/pages/search/searchItems/locationSearch";
+import classNames from "classnames";
 
 const Search = () => {
   useCheckAuth();
   const [searchParams, setSearchParams] = useState<IQuestions[]>([]);
   const [searchResults, setSearchResults] = useState<ISearchItems[]>([]);
+  const [openSearchMenu, setOpenSearchMenu] = useState(false);
 
   const { searchObject } = useContext(SearchContext);
 
@@ -30,6 +32,15 @@ const Search = () => {
         console.log(err);
       });
   }, []);
+  //   useEffect(() => {
+  //     let closeSearchBar = () => {
+  //       setOpenSearchMenu(false);
+  //     };
+  //     window.addEventListener("click", closeSearchBar);
+  //     return () => {
+  //       window.removeEventListener("click", closeSearchBar);
+  //     };
+  //   }, []);
 
   useEffect(() => {
     ProfileService.search({})
@@ -47,7 +58,14 @@ const Search = () => {
   const searchHandler = () => {
     console.log(searchObject, "searchObject");
 
-    ProfileService.search({ filters: searchObject })
+    let cleanUpSearchObject = {};
+    for (const key in searchObject) {
+      if (searchObject[key].length) {
+        cleanUpSearchObject[key] = searchObject[key];
+      }
+    }
+
+    ProfileService.search({ filters: cleanUpSearchObject })
       .then((res) => {
         // debugger;
         setSearchResults(res.data.data);
@@ -71,13 +89,31 @@ const Search = () => {
     setSearchResults(updatedSearchResults);
   };
 
+  const toggleSearchMenu = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    // e.stopPropagation();
+    if (openSearchMenu) {
+      setOpenSearchMenu(false);
+    } else {
+      setOpenSearchMenu(true);
+    }
+  };
+
   return (
     <div className="">
       <Header />
       {/* <SearchProvider> */}
       <div className="searchPage">
         <div className="container d-flex pt-5">
-          <div className="search_sideBar">
+          <div
+            // onClick={(e) => {
+            //   setOpenSearchMenu(true);
+            // }}
+            className={classNames("search_sideBar", {
+              openSearchMenu: openSearchMenu,
+            })}
+          >
             {/* left */}
             {/* <SelectCommon
             type={"search"}
@@ -120,9 +156,102 @@ const Search = () => {
             </div>
           </div>
           <div className="search_mainContent">
-            <LocationSearch
-              data={searchParams.find((el) => el.name === "distinct")}
-            />
+            <div className="d-flex ">
+              <div onClick={toggleSearchMenu} className="searchMenu_btn ">
+                {openSearchMenu ? (
+                  <svg
+                    width="23"
+                    height="23"
+                    viewBox="0 0 23 23"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M11.5 0C5.16235 0 0 5.16235 0 11.5C0 17.8377 5.16235 23 11.5 23C17.8377 23 23 17.8377 23 11.5C23 5.16235 17.8377 0 11.5 0ZM11.5 2.3C16.5946 2.3 20.7 6.40536 20.7 11.5C20.7 16.5946 16.5946 20.7 11.5 20.7C6.40536 20.7 2.3 16.5946 2.3 11.5C2.3 6.40536 6.40536 2.3 11.5 2.3ZM7.71309 6.08691L6.08691 7.71309L9.87383 11.5L6.08691 15.2869L7.71309 16.9131L11.5 13.1262L15.2869 16.9131L16.9131 15.2869L13.1262 11.5L16.9131 7.71309L15.2869 6.08691L11.5 9.87383L7.71309 6.08691Z"
+                      fill="#19A463"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M13.875 11.9999L3.75004 11.9999"
+                      stroke="#19A463"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M20.25 11.9999L17.625 11.9999"
+                      stroke="#19A463"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M13.875 11.9999C13.875 13.0354 14.7145 13.8749 15.75 13.8749C16.7855 13.8749 17.625 13.0354 17.625 11.9999C17.625 10.9643 16.7855 10.1249 15.75 10.1249C14.7145 10.1249 13.875 10.9643 13.875 11.9999Z"
+                      stroke="#19A463"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M6.375 18.7499L3.75001 18.75"
+                      stroke="#19A463"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M20.25 18.75L10.125 18.7499"
+                      stroke="#19A463"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M6.37501 18.7499C6.37501 19.7854 7.21448 20.6249 8.25001 20.6249C9.28554 20.6249 10.125 19.7854 10.125 18.7499C10.125 17.7143 9.28554 16.8749 8.25001 16.8749C7.21448 16.8749 6.37501 17.7143 6.37501 18.7499Z"
+                      stroke="#19A463"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M9.375 5.24987L3.75002 5.24976"
+                      stroke="#19A463"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M20.25 5.24976L13.125 5.24987"
+                      stroke="#19A463"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M9.37502 5.24987C9.37502 6.2854 10.2145 7.12486 11.25 7.12486C12.2855 7.12486 13.125 6.2854 13.125 5.24987C13.125 4.21434 12.2855 3.37488 11.25 3.37488C10.2145 3.37488 9.37502 4.21434 9.37502 5.24987Z"
+                      stroke="#19A463"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                )}
+              </div>
+              <div className="w-100">
+                <LocationSearch
+                  data={searchParams.find((el) => el.name === "distinct")}
+                  searchHandler={searchHandler}
+                />
+              </div>
+            </div>
             {searchResults.length &&
               searchResults.map((el) => {
                 return (

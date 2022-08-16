@@ -33,7 +33,7 @@ const Range: React.FC<IProps> = ({
             setSearchObject({
               question_id: id,
               type: "range",
-              value: [e.target.value, rangeValues[1]],
+              value: [Number(e.target.value), Number(rangeValues[1])],
             });
           }}
           value={rangeValues[0]}
@@ -47,7 +47,7 @@ const Range: React.FC<IProps> = ({
             setSearchObject({
               question_id: id,
               type: "range",
-              value: [rangeValues[0], e.target.value],
+              value: [Number(rangeValues[0]), Number(e.target.value)],
             });
           }}
           value={rangeValues[1]}
