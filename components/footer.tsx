@@ -9,7 +9,7 @@ function Footer() {
           <div className="col-md-5 d-flex flex-column justify-content-center ">
             <Link href="/">
               <a>
-                <img src="/imgs/logo.png" />
+                <img className="mb-4 mb-md-0" src="/imgs/logo.png" />
               </a>
             </Link>
           </div>

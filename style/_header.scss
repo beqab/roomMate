@@ -9,8 +9,14 @@
           color: #fff;
           text-decoration: none;
           transition: 0.3s;
+          white-space: nowrap;
           &:hover {
             color: $brandColor;
+            svg {
+              path {
+                fill: $brandColor;
+              }
+            }
           }
         }
         margin: 0 15px;
@@ -80,6 +86,11 @@ header {
 }
 
 @media only screen and (max-width: 768px) {
+  .logo {
+    svg {
+      width: 153px;
+    }
+  }
   header {
     .btn {
       font-size: 12px;
