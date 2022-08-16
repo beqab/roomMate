@@ -9,6 +9,9 @@ import { SearchProvider } from "../components/pages/search/context/searchContext
 import { SearchContext } from "../components/pages/search/context/searchContext";
 import Link from "next/link";
 import ProfileCard from "../components/pages/profile/profileCard";
+import Range from "../components/pages/search/searchItems/range";
+import { Button } from "../components/common/form";
+import LocationSearch from "../components/pages/search/searchItems/locationSearch";
 
 const Search = () => {
   useCheckAuth();
@@ -88,8 +91,10 @@ const Search = () => {
             value="fsf"
           /> */}
             {searchParams.map((el) => {
-              if (el.type === "choice") {
+              if (el.search_type === "choice" && el.name !== "distinct") {
                 return <Choice key={el.id} data={el} />;
+              } else if (el.search_type === "range") {
+                return <Range key={el.id} data={el} />;
               }
             })}
             <div className="searchBtnWrapper">
@@ -115,6 +120,9 @@ const Search = () => {
             </div>
           </div>
           <div className="search_mainContent">
+            <LocationSearch
+              data={searchParams.find((el) => el.name === "distinct")}
+            />
             {searchResults.length &&
               searchResults.map((el) => {
                 return (

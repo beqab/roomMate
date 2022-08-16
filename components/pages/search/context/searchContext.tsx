@@ -5,9 +5,11 @@ interface IContext {
   setOpenSearchItemId: (id: number) => void;
   searchObject: { [key: string]: number[] };
   setSearchObject: (data: {
-    id: number;
+    id?: number;
     question_id: number;
-    is_multiple: boolean;
+    is_multiple?: boolean;
+    type?: string;
+    value?: (number | string)[];
   }) => void;
 }
 
@@ -29,11 +31,22 @@ export const SearchProvider: React.FC<IProps> = ({ children }) => {
   );
 
   let setVal = (data: {
-    id: number;
+    id?: number;
     question_id: number;
-    is_multiple: boolean;
+    is_multiple?: boolean;
+    type?: string;
+    value?: any;
   }) => {
     console.log("dddd");
+    if (data.type === "range") {
+      //   debugger;
+      setSearchValues({
+        ...searchValues,
+        [data.question_id]: [...data.value],
+      });
+      return;
+    }
+
     if (!searchValues[data.question_id]) {
       setSearchValues({ ...searchValues, [data.question_id]: [data.id] });
     } else {

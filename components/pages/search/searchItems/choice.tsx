@@ -94,37 +94,58 @@ const Choice: React.FC<IProps> = ({ data }) => {
           {data.answers.map((el) => {
             return (
               <div key={el.id}>
-                <label className="">
-                  <input
-                    onChange={() =>
-                      setSearchObject({ ...el, is_multiple: data.is_multiple })
-                    }
-                    checked={isChecked(el)}
-                    type="checkbox"
-                  />
-                  {el.title}{" "}
+                <label className="d-flex checkbox_wrapper checkbox_wrapper-search">
+                  <div className="checkbox_item">
+                    <input
+                      onChange={() =>
+                        setSearchObject({
+                          ...el,
+                          is_multiple: data.is_multiple,
+                        })
+                      }
+                      checked={isChecked(el)}
+                      type="checkbox"
+                    />
+                    <span className="checkmark"></span>
+                  </div>
+                  <div className="">{el.title} </div>
                 </label>
               </div>
             );
           })}
         </div>
       </div>
-      {data.answers.map((el) => {
-        if (searchObject[el.question_id]) {
-          if (searchObject[el.question_id].find((it) => it === el.id)) {
-            return (
-              <div
-                onClick={() => {
-                  setSearchObject({ ...el, is_multiple: data.is_multiple });
-                }}
-              >
-                {" "}
-                {el.title}{" "}
-              </div>
-            );
+      <div className="selectedSearch_wrapper">
+        {data.answers.map((el) => {
+          if (searchObject[el.question_id]) {
+            if (searchObject[el.question_id].find((it) => it === el.id)) {
+              return (
+                <div
+                  className="searchCancel"
+                  onClick={() => {
+                    setSearchObject({ ...el, is_multiple: data.is_multiple });
+                  }}
+                >
+                  {" "}
+                  <svg
+                    width="10"
+                    height="10"
+                    viewBox="0 0 23 23"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M11.5 0C5.16235 0 0 5.16235 0 11.5C0 17.8377 5.16235 23 11.5 23C17.8377 23 23 17.8377 23 11.5C23 5.16235 17.8377 0 11.5 0ZM11.5 2.3C16.5946 2.3 20.7 6.40536 20.7 11.5C20.7 16.5946 16.5946 20.7 11.5 20.7C6.40536 20.7 2.3 16.5946 2.3 11.5C2.3 6.40536 6.40536 2.3 11.5 2.3ZM7.71309 6.08691L6.08691 7.71309L9.87383 11.5L6.08691 15.2869L7.71309 16.9131L11.5 13.1262L15.2869 16.9131L16.9131 15.2869L13.1262 11.5L16.9131 7.71309L15.2869 6.08691L11.5 9.87383L7.71309 6.08691Z"
+                      fill="red"
+                    />
+                  </svg>
+                  {el.title}{" "}
+                </div>
+              );
+            }
           }
-        }
-      })}
+        })}
+      </div>
     </div>
   );
 };

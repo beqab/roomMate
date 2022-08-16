@@ -39,6 +39,12 @@ body {
     }
   }
 }
+input,
+button {
+  &:focus {
+    outline: none;
+  }
+}
 .pl-3 {
   padding-left: 10px;
 }
