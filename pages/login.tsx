@@ -11,6 +11,7 @@ import axios from "axios";
 import Router from "next/router";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import Logo from "../components/svg/logo";
 
 interface ILoginForm {
   password: string;
@@ -77,9 +78,11 @@ const Login = () => {
           <div className="leftSide d-none d-md-flex ">
             <div>
               <Link href="/">
-                <a>Logo</a>
+                <a>
+                  <Logo />
+                </a>
               </Link>
-              <p>იპოვე ოთახის მეზობელი ხარჯების გაყოფის მიზნით</p>
+              <p>იპოვე ოთახის მეზობელი და გაიყავი ბინის ქირა</p>
             </div>
           </div>
           <div className="form_Wrapper">

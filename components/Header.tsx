@@ -5,6 +5,7 @@ import { useTypedSelector } from "../components/hooks/useTypeSelector";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { logout } from "../redux/action-creators";
+import Logo from "../components/svg/logo";
 
 interface IProps {
   type?: "profile";
@@ -36,7 +37,9 @@ function Header({ type }: IProps) {
           <div className="row">
             <div className="col-2">
               <Link href="/">
-                <a>Logo</a>
+                <a className="logo">
+                  <Logo />
+                </a>
               </Link>
             </div>
             <div className="nav nav_wrapper col-10 d-flex align-items-center justify-content-end">
@@ -101,7 +104,7 @@ function Header({ type }: IProps) {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/">
+                  <Link href="/#contact">
                     <a>კონტაქტი</a>
                   </Link>
                 </li>

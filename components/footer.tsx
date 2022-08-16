@@ -8,7 +8,9 @@ function Footer() {
         <div className="row">
           <div className="col-md-5 d-flex flex-column justify-content-center ">
             <Link href="/">
-              <a>Logo</a>
+              <a>
+                <img src="/imgs/logo.png" />
+              </a>
             </Link>
           </div>
           <div className="col-md-4">
@@ -19,23 +21,28 @@ function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/">
+                <Link href="/search">
                   <a> იპოვე ოთახის მეზობელი</a>
                 </Link>
               </li>
               <li>
-                <Link href="/">
+                <Link href="/#howitwork">
                   <a> როგორ მუშაობს</a>
                 </Link>
               </li>
               <li>
-                <Link href="/">
+                <Link href="/#testimonial">
                   <a>რას ამბობენ ჩენზე</a>
                 </Link>
               </li>
               <li>
-                <Link href="/">
+                <Link href="/#faq">
                   <a>ხშირად დასმული შეკითხვები</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/#faq">
+                  <a>წესები და პირობები</a>
                 </Link>
               </li>
             </ul>

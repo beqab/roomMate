@@ -25,11 +25,27 @@ const IndexPage = () => {
             <div className="row align-items-center">
               <div className="col-md-6 ">
                 <h1>
-                  იპოვე ოთახის მეზობელი <br />
-                  ხარჯების გაყოფის მიზნით
+                  იპოვე ოთახის მეზობელი და
+                  <br />
+                  გაიყავი ბინის ქირა
                 </h1>
                 <Link href={user ? "/search" : "/createProfile"}>
-                  <a className="btn btn-primary ">იპოვე შენი ოთახის მეზობელი</a>
+                  <a className="btn btn-primary ">
+                    <svg
+                      width="22"
+                      height="22"
+                      viewBox="0 0 22 22"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="mr-3"
+                    >
+                      <path
+                        d="M21.7008 19.0204L17.4165 14.7368C17.2231 14.5435 16.961 14.4361 16.686 14.4361H15.9855C17.1716 12.9194 17.8763 11.0118 17.8763 8.93663C17.8763 4 13.8756 0 8.93815 0C4.00068 0 0 4 0 8.93663C0 13.8733 4.00068 17.8733 8.93815 17.8733C11.0137 17.8733 12.9216 17.1686 14.4386 15.9828V16.6831C14.4386 16.9581 14.546 17.2202 14.7394 17.4135L19.0237 21.6971C19.4276 22.101 20.0808 22.101 20.4804 21.6971L21.6965 20.4812C22.1004 20.0773 22.1004 19.4243 21.7008 19.0204ZM8.93815 14.4361C5.90004 14.4361 3.43775 11.9785 3.43775 8.93663C3.43775 5.89903 5.89574 3.43716 8.93815 3.43716C11.9763 3.43716 14.4386 5.89474 14.4386 8.93663C14.4386 11.9742 11.9806 14.4361 8.93815 14.4361Z"
+                        fill="white"
+                      />
+                    </svg>
+                    იპოვე შენი ოთახის მეზობელი
+                  </a>
                 </Link>
               </div>
               <div className="col-6 d-flex justify-content-end">
@@ -39,7 +55,7 @@ const IndexPage = () => {
           </div>
         </section>
       </div>
-      <section className="stepsSection">
+      <section id="howitwork" className="stepsSection">
         <div className="container ">
           <h2>როგორ მუშაობს</h2>
           <div className="row mt-5 pt-5">
@@ -70,14 +86,16 @@ const IndexPage = () => {
                   <span>1</span>
                 </div>
                 <div className="img-wrapper">
-                  <img src="/imgs/Frame.svg" />
+                  <img src="/imgs/Frame.png" />
                 </div>
-                <h3>სათაური</h3>
-                <p>
+                <h3 className="mb-4">
+                  პროფილოს <br /> მაგივრად უნდა <br /> ეწეროს პროფილი
+                </h3>
+                {/* <p>
                   შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს და
                   ტიპოგრაფიული ნაწარმის შემქმნელებს, რეალურთან მაქსიმალურად
                   მიახლოებული
-                </p>
+                </p> */}
               </div>
             </div>
 
@@ -108,14 +126,17 @@ const IndexPage = () => {
                   <span>2</span>
                 </div>
                 <div className="img-wrapper">
-                  <img src="/imgs/Frame.svg" />
+                  <img src="/imgs/Frame (1).png" />
                 </div>
-                <h3>სათაური</h3>
-                <p>
+                <h3 className="mb-3">
+                  მიუთითე სასურველი <br /> კრიტერიუმები და <br /> იპოვე ოთახის{" "}
+                  <br /> მეზობელი
+                </h3>
+                {/* <p>
                   შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს და
                   ტიპოგრაფიული ნაწარმის შემქმნელებს, რეალურთან მაქსიმალურად
                   მიახლოებული
-                </p>
+                </p> */}
               </div>
             </div>
             <div className="col-md-3">
@@ -144,15 +165,17 @@ const IndexPage = () => {
                   </svg>
                   <span>3</span>
                 </div>
-                <div className="img-wrapper">
-                  <img src="/imgs/Frame.svg" />
+                <div className="img-wrapper mt-4">
+                  <img src="/imgs/Frame (2).png" />
                 </div>
-                <h3>სათაური</h3>
-                <p>
+                <h3 className="mb-5">
+                  გაეცანი მის <br /> პროფილს და <br /> დაუკავშირდი
+                </h3>
+                {/* <p>
                   შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს და
                   ტიპოგრაფიული ნაწარმის შემქმნელებს, რეალურთან მაქსიმალურად
                   მიახლოებული
-                </p>
+                </p> */}
               </div>
             </div>
             <div className="col-md-3">
@@ -182,20 +205,44 @@ const IndexPage = () => {
                   <span>4</span>
                 </div>
                 <div className="img-wrapper">
-                  <img src="/imgs/Frame.svg" />
+                  <img src="/imgs/Frame (3).png" />
                 </div>
-                <h3>სათაური</h3>
-                <p>
-                  შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს და
-                  ტიპოგრაფიული ნაწარმის შემქმნელებს, რეალურთან მაქსიმალურად
-                  მიახლოებული
-                </p>
+                <h3>უსაფრთხოება</h3>
+                <div>
+                  <p className="text-left">
+                    <svg
+                      className="mr-3"
+                      width="7"
+                      height="7"
+                      viewBox="0 0 7 7"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle cx="3.5" cy="3.5" r="3.5" fill="#484848" />
+                    </svg>
+                    შეგიძლია დამალო პირადი მონაცემები შენთვის არამიზნობრივი
+                    ჯგუფისგან.
+                  </p>
+                  <p className="text-left">
+                    <svg
+                      className="mr-3"
+                      width="7"
+                      height="7"
+                      viewBox="0 0 7 7"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle cx="3.5" cy="3.5" r="3.5" fill="#484848" />
+                    </svg>
+                    ყალბი ექაუნთების შემოწმებას უზრუნველყოფს ჩვენი გუნდი.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-      <section className="testimonialSection">
+      <section id="testimonial" className="testimonialSection">
         <div className="container">
           <h2>რას ამბობენ ჩვენზე</h2>
           <div className="row">
@@ -247,7 +294,7 @@ const IndexPage = () => {
           </div>
         </div>
       </section>
-      <section className="faqSection">
+      <section id="faq" className="faqSection">
         <div className="container">
           <h2>ხშირად დასმული შეკითხვები</h2>
           <div className="row">
@@ -255,7 +302,7 @@ const IndexPage = () => {
           </div>
         </div>
       </section>
-      <section className="contactSection">
+      <section id="contact" className="contactSection">
         <div className="container">
           <div className="row ">
             <div className="col-md-6 d-flex flex-column justify-content-center">

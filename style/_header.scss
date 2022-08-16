@@ -18,8 +18,12 @@
     }
   }
 }
+
 header {
   padding: 20px 0;
+  .logo {
+    transform: translateY(4px);
+  }
 }
 .headerWrapper {
   background: $brandColorDark;

@@ -9,16 +9,21 @@
     margin-bottom: 38px;
   }
   .btn {
-    max-width: 350px;
+    max-width: 380px;
+    height: 54px;
     font-family: $mainFontCaps;
   }
 }
 .mainBg {
   background-color: #00431a;
+  background: url("../public/imgs/new2\ 1.png");
+  background-position: center;
+  background-size: cover;
 }
 
 .stepsSection {
-  margin-top: -300px;
+  margin-top: -500px;
+  padding-top: 200px;
   &_card_Wrapper {
     width: 276px;
     background: #f7f7f7;
@@ -27,7 +32,11 @@
     text-align: center;
     padding: 20px;
     position: relative;
-
+    display: flex;
+    flex-direction: column;
+    // align-items: ;
+    min-height: 347px;
+    justify-content: space-around;
     .numberHint {
       position: absolute;
       width: 82px;
@@ -68,7 +77,7 @@
 }
 
 .testimonialSection {
-  margin-top: 170px;
+  padding-top: 170px;
   .container {
     max-width: 1020px;
   }
@@ -176,9 +185,11 @@
 }
 
 .contactSection {
-  background: $brandColorDark;
-  padding-top: 60px;
-  padding-bottom: 60px;
+  background: url("../public/imgs/new2\ 1\ \(1\).png");
+  padding-top: 90px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-bottom: 90px;
   h2 {
     color: #fff;
   }
@@ -232,6 +243,7 @@
 
 footer {
   padding-top: 60px;
+  margin-top: 120px;
   ul {
     li {
       margin-bottom: 9px;
@@ -260,7 +272,7 @@ footer {
 }
 
 h2 {
-  font-size: 22px;
+  font-size: 28px;
   font-family: $mainFontCaps;
   margin-bottom: 33px;
   text-align: center;
