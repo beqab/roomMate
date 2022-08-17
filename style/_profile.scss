@@ -191,6 +191,32 @@
 // }
 
 @media only screen and (max-width: 768px) {
+  .profile_userHeading {
+    text-align: center;
+  }
+  .profile_aboutMe {
+    text-align: center;
+    p {
+      margin-top: 6px;
+      font-size: 13px;
+      margin-bottom: 0;
+    }
+  }
+  .profile_contacts {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+
+    margin-top: 14px;
+    border-bottom: 1px solid #e8e8e8;
+    margin-bottom: 5px;
+  }
+  .notification_card {
+    width: 100%;
+  }
+  .userCard_wrapper {
+    max-width: 100%;
+  }
   .profile {
     &_wrapper {
       flex-direction: column;
@@ -213,6 +239,7 @@
     }
     &_mainContent {
       width: calc(100% - 0px);
+      padding-left: 0;
       .answersPreview {
         margin-left: 0;
         padding: 19px 17px 2px;

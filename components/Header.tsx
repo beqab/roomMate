@@ -39,6 +39,7 @@ function Header({ type }: IProps) {
               <Link href="/">
                 <a className="logo">
                   <Logo />
+                  <img className="logoPng" src="/imgs/logo.png" />
                 </a>
               </Link>
             </div>

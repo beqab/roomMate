@@ -38,6 +38,9 @@ header {
   top: 0px;
   width: 100%;
   z-index: 3;
+  img.logoPng {
+    display: none;
+  }
   .btn {
     &_profile {
       color: #fff !important;
@@ -53,6 +56,14 @@ header {
   &.profile {
     position: inherit;
     background-color: #fff;
+    img.logoPng {
+      display: inline-block;
+    }
+    .logo {
+      svg {
+        display: none;
+      }
+    }
     * {
       color: $brandTextColor;
     }
@@ -86,6 +97,12 @@ header {
 }
 
 @media only screen and (max-width: 768px) {
+  .headerWrapper.profile ul * {
+    color: $brandColor;
+  }
+  .headerWrapper.profile ul svg path {
+    fill: $brandColor;
+  }
   .logo {
     svg {
       width: 153px;
