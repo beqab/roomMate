@@ -86,10 +86,10 @@ const IndexPage = () => {
                   </svg>
                   <span>1</span>
                 </div>
-                <div className="img-wrapper">
+                <div className="img-wrapper mt-3">
                   <img src="/imgs/Frame.png" />
                 </div>
-                <h3 className="mb-4">შექმენი პროფილი</h3>
+                <h3 className="mb-5">შექმენი პროფილი</h3>
                 {/* <p>
                   შემთხვევითად გენერირებული ტექსტი ეხმარება დიზაინერებს და
                   ტიპოგრაფიული ნაწარმის შემქმნელებს, რეალურთან მაქსიმალურად
@@ -243,7 +243,7 @@ const IndexPage = () => {
       </section>
       <section className="partners">
         <div className="container">
-          <h2>რას ამბობენ ჩვენზე</h2>
+          <h2>პარტნიორები</h2>
           <Partners />
         </div>
       </section>
