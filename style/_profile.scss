@@ -101,9 +101,11 @@
 
 .balance {
   &_wrapper {
-    background-color: #fff;
+    // background-color: #fff;
+    min-height: 53vh;
     margin-top: 20px;
     margin-left: 15px;
+    position: relative;
     padding-top: 60px;
     padding-bottom: 60px;
     h2 {
@@ -115,6 +117,21 @@
     width: 100%;
     margin: auto;
   }
+}
+.statusLink {
+  display: flex;
+  justify-content: space-between;
+  .btn {
+    font-size: 13px;
+  }
+}
+
+.payStatus {
+  background: #fdd5d5;
+  color: #db0505;
+  font-size: 13px;
+  height: 30px;
+  border-radius: 6px;
 }
 
 .answersPreview {
@@ -183,6 +200,46 @@
 
   &_footer {
     padding-top: 19px;
+  }
+}
+
+.payModal {
+  &_wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 0px;
+    top: 0px;
+    .buyModal {
+      padding: 35px 50px;
+      background-color: #fff;
+      max-width: 750px;
+      width: 100%;
+      box-shadow: 0px 7px 16px rgba(170, 170, 170, 0.25);
+      border-radius: 6px;
+      h2 {
+        line-height: 30px;
+        font-size: 18px;
+        max-width: 360px;
+        margin: auto;
+      }
+      p {
+        font-size: 18px;
+        border-top: 1px solid #e3e3e3;
+        font-size: 18px;
+        padding-top: 50px;
+        margin-top: 45px;
+        padding-bottom: 40px;
+      }
+      .btn {
+        width: 170px;
+        height: 35px;
+        box-shadow: 0px 2px 4px rgba(75, 75, 75, 0.25);
+      }
+    }
   }
 }
 // .profile_Wrapper {

@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import Loader from "../../components/common/loader";
 import ProfileWrapper from "../../components/pages/profile/profileWrapper";
 import { FormGroup, Button, Input } from "../../components/common/form";
+import PayModal from "../../components/pages/payModal";
 
 function Balance(props) {
   const [load, setLoad] = useState(false);
@@ -17,7 +18,8 @@ function Balance(props) {
   return (
     <ProfileWrapper consumerPage="balance">
       <div className="balance_wrapper">
-        <form className="balance_container">
+        <PayModal />
+        {/* <form className="balance_container">
           <h2>ბალანსის შევსება</h2>
           <img className="pb-4" src="/imgs/image 8.png" />
           <FormGroup
@@ -52,7 +54,7 @@ function Balance(props) {
           >
             შევსება
           </Button>
-        </form>
+        </form> */}
       </div>
     </ProfileWrapper>
   );
