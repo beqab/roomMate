@@ -2,8 +2,12 @@ import React from "react";
 import Link from "next/link";
 import { ISearchItems } from "../../../services/profile/profile.http";
 import { ProfileService } from "../../../services/profile/profile.http";
+import classnames from "classnames";
+import { useRouter } from "next/router";
+
 interface IProps extends ISearchItems {
   updateAddRemove?: (id: number, saveId: boolean) => void;
+  setPayModal?: (payed: boolean) => void;
 }
 
 const ProfileCard: React.FC<IProps> = ({
@@ -13,8 +17,11 @@ const ProfileCard: React.FC<IProps> = ({
   suitablePrices,
   id,
   favourite_id,
-  isSaved,
+  isFavourite,
   about_me,
+  payed,
+  setPayModal,
+
   updateAddRemove,
 }) => {
   const addRemoveFromFavorites = () => {
@@ -22,21 +29,31 @@ const ProfileCard: React.FC<IProps> = ({
     ProfileService.addRemoveFavorites(requestId)
       .then((res) => {
         console.log(res);
-        updateAddRemove(requestId, isSaved);
+        updateAddRemove(requestId, isFavourite);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
+  const router = useRouter();
+
   return (
     <div className="userCard_wrapper">
       <div className="userCard_heading d-flex justify-content-between ">
-        <div>
+        <div
+          className={classnames({
+            bluer: !payed,
+          })}
+        >
           <span className="pr-3">{firstname}</span>
           <span>{age} წლის</span>
         </div>
-        <div>
+        <div
+          className={classnames({
+            bluer: !payed,
+          })}
+        >
           {suitablePrices &&
             suitablePrices[0].split("-")[0] +
               "-" +
@@ -67,13 +84,22 @@ const ProfileCard: React.FC<IProps> = ({
               stroke="#5E666E"
             />
           </svg>
-          <span className="pl-2 userCard_footer_locations ">
+          <span
+            className={classnames("pl-2 userCard_footer_locations ", {
+              bluer: !payed,
+            })}
+          >
             {suitableDistricts && suitableDistricts.join(", ")}
           </span>
         </div>
         <div className="d-flex pointer ">
           <div
             onClick={() => {
+              if (!payed) {
+                setPayModal(payed);
+
+                return;
+              }
               addRemoveFromFavorites();
             }}
             className="mx-3 "
@@ -88,13 +114,25 @@ const ProfileCard: React.FC<IProps> = ({
               <path
                 d="M9.51338 1.81663L9.51315 1.81686L8.85906 2.49087L8.50024 2.86062L8.14143 2.49087L7.48734 1.81686L7.48676 1.81627C5.98177 0.260311 3.57076 0.0379397 1.97517 1.39741L9.51338 1.81663ZM9.51338 1.81663C11.022 0.260021 13.4299 0.0381075 15.0253 1.39741C16.8878 2.98705 16.9876 5.84713 15.3162 7.57195L15.3161 7.57205M9.51338 1.81663L15.3161 7.57205M15.3161 7.57205L8.89154 14.2058C8.89151 14.2058 8.89148 14.2059 8.89145 14.2059C8.6729 14.4313 8.32427 14.4313 8.10572 14.2059C8.10569 14.2059 8.10566 14.2058 8.10562 14.2058L1.68125 7.57227M15.3161 7.57205L1.68125 7.57227M1.68125 7.57227L1.68104 7.57205C0.0128322 5.8472 0.112702 2.98711 1.97509 1.39747L1.68125 7.57227Z"
                 stroke="#5E666E"
-                fill={isSaved ? "red" : "#fff"}
+                fill={isFavourite ? "red" : "#fff"}
               />
             </svg>
-            {isSaved ? "წაშლა" : " შენახვა"}
+            {isFavourite ? "წაშლა" : " შენახვა"}
           </div>
           <Link href={`/user/${id}`}>
-            <a>მეტის ნახვა</a>
+            <a
+              onClick={(e) => {
+                e.preventDefault();
+                if (!payed) {
+                  setPayModal(payed);
+                  return;
+                } else {
+                  router.push(`/user/${id}`);
+                }
+              }}
+            >
+              მეტის ნახვა
+            </a>
           </Link>
         </div>
       </div>

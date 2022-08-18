@@ -60,7 +60,7 @@ const QuestionPreview: React.FC<IProps> = ({
   // console.log(answers().filter(Boolean), "xxxxxxxxxxxxxxxxxxx");
 
   return (
-    <div className="mt-3">
+    <div className="mt-3 answersPreview_wrapper">
       {answers()
         .filter(Boolean)
         .map((el, i) => {

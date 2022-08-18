@@ -11,6 +11,7 @@ interface IContext {
     type?: string;
     value?: (number | string)[];
   }) => void;
+  setSearchObjectFromQuery: (data: { [key: string]: number[] }) => void;
 }
 
 export const SearchContext = createContext<IContext>({
@@ -18,6 +19,7 @@ export const SearchContext = createContext<IContext>({
   setOpenSearchItemId: (id: number) => null,
   searchObject: {},
   setSearchObject: (data: any) => null,
+  setSearchObjectFromQuery: (data) => null,
 });
 
 interface IProps {
@@ -80,6 +82,9 @@ export const SearchProvider: React.FC<IProps> = ({ children }) => {
     searchObject: searchValues,
     setSearchObject: (data: any) => {
       setVal(data);
+    },
+    setSearchObjectFromQuery: (data: any) => {
+      setSearchValues(data);
     },
   };
   return (

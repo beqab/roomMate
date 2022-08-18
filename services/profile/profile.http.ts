@@ -11,7 +11,7 @@ export interface ISearchItems {
   suitableDistricts: string[];
   suitablePrices: string[];
   users_is_locked_communication: boolean;
-  isSaved: boolean;
+  isFavourite: boolean;
   about_me: string;
   favourite_id?: number;
 }

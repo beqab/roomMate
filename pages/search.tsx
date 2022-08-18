@@ -13,6 +13,11 @@ import Range from "../components/pages/search/searchItems/range";
 import { Button } from "../components/common/form";
 import LocationSearch from "../components/pages/search/searchItems/locationSearch";
 import classNames from "classnames";
+import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/action-creators";
+import PayModal from "../components/pages/payModal";
+import { useTypedSelector } from "../components/hooks/useTypeSelector";
 
 const Search = () => {
   useCheckAuth();
@@ -20,7 +25,17 @@ const Search = () => {
   const [searchResults, setSearchResults] = useState<ISearchItems[]>([]);
   const [openSearchMenu, setOpenSearchMenu] = useState(false);
 
-  const { searchObject } = useContext(SearchContext);
+  const [openPayModal, setOpenPayModal] = useState(false);
+
+  const { user } = useTypedSelector((state) => state.profile);
+
+  const {
+    searchObject,
+    setSearchObject,
+    setSearchObjectFromQuery,
+  } = useContext(SearchContext);
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     Questions.getQuestions()
@@ -31,16 +46,26 @@ const Search = () => {
       .catch((err) => {
         console.log(err);
       });
+
+    // setSearchParams(query);
   }, []);
-  //   useEffect(() => {
-  //     let closeSearchBar = () => {
-  //       setOpenSearchMenu(false);
-  //     };
-  //     window.addEventListener("click", closeSearchBar);
-  //     return () => {
-  //       window.removeEventListener("click", closeSearchBar);
-  //     };
-  //   }, []);
+
+  // useEffect(() => {
+  //   if (router.query.filter) {
+  //     let query = JSON.parse(router.query.filter as string);
+  //     console.log(query, "qqqqqqqqqqqqqqq");
+  //     setSearchObjectFromQuery(query);
+  //     ProfileService.search({
+  //       filter: query,
+  //     })
+  //       .then((res) => {
+  //         // debugger;
+  //         setSearchResults(res.data.data);
+  //       })
+  //       .catch((err) => {
+  //       });
+  //   }
+  // }, [router.query.filter]);
 
   useEffect(() => {
     ProfileService.search({})
@@ -49,6 +74,11 @@ const Search = () => {
         setSearchResults(res.data.data);
       })
       .catch((err) => {
+        if (err.response.data.message === "Unauthorized") {
+          dispatch(logout());
+          // router.push("/login");
+          window.location.replace("/login");
+        }
         // debugger;
       });
   }, []);
@@ -57,6 +87,10 @@ const Search = () => {
 
   const searchHandler = () => {
     console.log(searchObject, "searchObject");
+    if (!user?.payed) {
+      setOpenPayModal(true);
+      return;
+    }
 
     let cleanUpSearchObject = {};
     for (const key in searchObject) {
@@ -65,12 +99,27 @@ const Search = () => {
       }
     }
 
+    // router.push("/search", {
+    //   query: {
+    //     filter: JSON.stringify(cleanUpSearchObject),
+    //   },
+    // });
+
     ProfileService.search({ filters: cleanUpSearchObject })
       .then((res) => {
         // debugger;
         setSearchResults(res.data.data);
       })
       .catch((err) => {
+        if (err.response) {
+          console.log(err.response.data.message);
+          if (err.response.data.message === "Unauthorized") {
+            dispatch(logout());
+            // router.push("/login");
+            window.location.replace("/login");
+          }
+          // debugger;
+        }
         // debugger;
       });
   };
@@ -78,10 +127,10 @@ const Search = () => {
   const updateAddRemove = (id: number, saveId: boolean) => {
     const updatedSearchResults = searchResults.map((el) => {
       if (!saveId && el.id === id) {
-        return { ...el, isSaved: true };
+        return { ...el, isFavourite: true };
       }
       if (saveId && el.id === id) {
-        return { ...el, isSaved: false };
+        return { ...el, isFavourite: false };
       }
       return { ...el };
     });
@@ -104,6 +153,15 @@ const Search = () => {
     <div className="">
       <Header />
       {/* <SearchProvider> */}
+      {openPayModal ? (
+        <PayModal
+          isModal
+          setClose={() => {
+            setOpenPayModal(false);
+          }}
+        />
+      ) : null}
+
       <div className="searchPage">
         <div className="container d-flex pt-5">
           <div
@@ -157,7 +215,10 @@ const Search = () => {
           </div>
           <div className="search_mainContent">
             <div className="d-flex ">
-              <div onClick={toggleSearchMenu} className="searchMenu_btn ">
+              <div
+                onClick={toggleSearchMenu}
+                className="searchMenu_btn d-block d-md-none "
+              >
                 {openSearchMenu ? (
                   <svg
                     width="23"
@@ -252,16 +313,24 @@ const Search = () => {
                 />
               </div>
             </div>
-            {searchResults.length &&
-              searchResults.map((el) => {
+            {!searchResults.length ? (
+              <div className="text-center mt-5">განცხადება არ მოიძებნა</div>
+            ) : (
+              searchResults?.map((el) => {
                 return (
                   <ProfileCard
+                    setPayModal={() => {
+                      setOpenPayModal(true);
+                    }}
                     key={el.id}
                     {...el}
                     updateAddRemove={updateAddRemove}
                   />
                 );
-              })}
+              })
+            )}
+
+            {!searchResults.length}
           </div>
         </div>
       </div>

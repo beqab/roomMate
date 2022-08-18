@@ -52,11 +52,14 @@ const SideBar: React.FC<ISidebar> = (props) => {
       </div>
       {!props.myProfile && props.is_locked_communication ? (
         <div className="profile_contacts">
+          <p className="text-center">
+            კონტაქტების სანახავად გთხოვთ გააგზავნოთ მოთხოვნა
+          </p>
           <Button
             loading={status === "load"}
             disabled={!!status}
             onClick={userContactRequest}
-            className="btn btn-primary mb-4"
+            className="btn btn-primary mb-4 w-100"
           >
             {status ? "მოთხოვნა გაგზავნილია" : " კონტაქტის მოთხოვნა"}
           </Button>
