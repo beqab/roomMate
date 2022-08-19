@@ -280,6 +280,22 @@
     font-size: 14px;
   }
 }
+.contactViewSwitch {
+  display: flex;
+  justify-content: center;
+  font-size: 13px;
+  margin-top: 6px;
+  margin-top: -10px;
+  > div {
+    cursor: pointer;
+  }
+  .form-check {
+    cursor: pointer;
+    input {
+      cursor: pointer;
+    }
+  }
+}
 // .profile_Wrapper {
 //   max-width: 1300px;
 //   margin: auto;

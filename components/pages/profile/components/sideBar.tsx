@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import { Button } from "../../../common/form";
 import { ProfileService } from "../../../../services/profile/profile.http";
 import { useTypedSelector } from "../../../hooks/useTypeSelector";
+import { setCurrentUser } from "../../../../redux/action-creators/index";
+import { useDispatch } from "react-redux";
 
 interface ISidebar {
   firstname: string;
@@ -21,6 +23,7 @@ const SideBar: React.FC<ISidebar> = (props) => {
   console.log(props, "propspropsprops");
   const router = useRouter();
   const [status, setStatus] = useState<"load" | boolean>(false);
+  const dispatch = useDispatch();
 
   const { user } = useTypedSelector((state) => state.profile);
 
@@ -38,6 +41,24 @@ const SideBar: React.FC<ISidebar> = (props) => {
       });
   };
 
+  const toggleCommunication = () => {
+    // ProfileService.updateLockCommunication(user.)
+  };
+
+  const handleChangeProfileLock = () => {
+    ProfileService.updateLockCommunication(!user?.is_locked_communication)
+      .then((res) => {
+        // console.log(res);
+        let newUSer = {
+          ...user,
+          is_locked_communication: !user.is_locked_communication,
+        };
+        dispatch(setCurrentUser({ user: newUSer }));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div className="profile_sideBar">
       <div className="profile_userHeading">
@@ -65,44 +86,73 @@ const SideBar: React.FC<ISidebar> = (props) => {
           </Button>
         </div>
       ) : (
-        <div className="profile_contacts">
-          <div>
-            <svg
-              width="17"
-              height="17"
-              viewBox="0 0 17 17"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3.34333 1.88889C3.4 2.72944 3.54167 3.55111 3.76833 4.335L2.635 5.46833C2.24778 4.335 2.00222 3.13556 1.91722 1.88889H3.34333ZM12.6556 13.2411C13.4583 13.4678 14.28 13.6094 15.1111 13.6661V15.0733C13.8644 14.9883 12.665 14.7428 11.5222 14.365L12.6556 13.2411ZM4.25 0H0.944444C0.425 0 0 0.425 0 0.944444C0 9.81278 7.18722 17 16.0556 17C16.575 17 17 16.575 17 16.0556V12.7594C17 12.24 16.575 11.815 16.0556 11.815C14.8844 11.815 13.7417 11.6261 12.6839 11.2767C12.5894 11.2389 12.4856 11.2294 12.3911 11.2294C12.1456 11.2294 11.9094 11.3239 11.7206 11.5033L9.64278 13.5811C6.97 12.2117 4.77889 10.03 3.41889 7.35722L5.49667 5.27944C5.76111 5.015 5.83667 4.64667 5.73278 4.31611C5.38333 3.25833 5.19444 2.125 5.19444 0.944444C5.19444 0.425 4.76944 0 4.25 0Z"
-                fill="#5E666E"
+        <>
+          <div className="contactViewSwitch flex-column">
+            <p>ჩართთეთ ან გამორთეთ კონტაქტის ხილვადობა ყველსასთვის</p>
+            <div className="form-check form-switch ">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                checked={user?.is_locked_communication}
+                role="switch"
+                onChange={() => {
+                  handleChangeProfileLock();
+                }}
+                id="flexSwitchCheckDefault"
               />
-            </svg>
-            {props?.phone}
-          </div>
-          {props?.social_network ? (
-            <div>
-              <a href={props?.social_network} rel="noreferrer" target="_blank">
-                <svg
-                  width="8"
-                  height="17"
-                  viewBox="0 0 8 17"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1.79631 17H5.21133V8.42146H7.59502L7.85456 5.55284H5.21133V3.92045C5.21133 3.23745 5.3411 2.9779 5.99678 2.9779H7.85456V0H5.4777C2.93009 0 1.78264 1.12013 1.78264 3.26476V5.55966H0V8.46243H1.78264L1.79631 17Z"
-                    fill="#5E666E"
-                  />
-                </svg>
-                {props?.firstname} {props?.lastname}
-              </a>
+              <label
+                className="form-check-label"
+                htmlFor="flexSwitchCheckDefault"
+              >
+                {/* კონტაqტის ხილვადობა{" "} */}
+                {!user?.is_locked_communication ? "ჩართვა" : "გამორთვა"}
+              </label>
             </div>
-          ) : (
-            ""
-          )}
-        </div>
+          </div>
+
+          <div className="profile_contacts">
+            <div>
+              <svg
+                width="17"
+                height="17"
+                viewBox="0 0 17 17"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3.34333 1.88889C3.4 2.72944 3.54167 3.55111 3.76833 4.335L2.635 5.46833C2.24778 4.335 2.00222 3.13556 1.91722 1.88889H3.34333ZM12.6556 13.2411C13.4583 13.4678 14.28 13.6094 15.1111 13.6661V15.0733C13.8644 14.9883 12.665 14.7428 11.5222 14.365L12.6556 13.2411ZM4.25 0H0.944444C0.425 0 0 0.425 0 0.944444C0 9.81278 7.18722 17 16.0556 17C16.575 17 17 16.575 17 16.0556V12.7594C17 12.24 16.575 11.815 16.0556 11.815C14.8844 11.815 13.7417 11.6261 12.6839 11.2767C12.5894 11.2389 12.4856 11.2294 12.3911 11.2294C12.1456 11.2294 11.9094 11.3239 11.7206 11.5033L9.64278 13.5811C6.97 12.2117 4.77889 10.03 3.41889 7.35722L5.49667 5.27944C5.76111 5.015 5.83667 4.64667 5.73278 4.31611C5.38333 3.25833 5.19444 2.125 5.19444 0.944444C5.19444 0.425 4.76944 0 4.25 0Z"
+                  fill="#5E666E"
+                />
+              </svg>
+              {props?.phone}
+            </div>
+            {props?.social_network ? (
+              <div>
+                <a
+                  href={props?.social_network}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  <svg
+                    width="8"
+                    height="17"
+                    viewBox="0 0 8 17"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1.79631 17H5.21133V8.42146H7.59502L7.85456 5.55284H5.21133V3.92045C5.21133 3.23745 5.3411 2.9779 5.99678 2.9779H7.85456V0H5.4777C2.93009 0 1.78264 1.12013 1.78264 3.26476V5.55966H0V8.46243H1.78264L1.79631 17Z"
+                      fill="#5E666E"
+                    />
+                  </svg>
+                  {props?.firstname} {props?.lastname}
+                </a>
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
+        </>
       )}
       <div className="profile_menu">
         {props.myProfile ? (

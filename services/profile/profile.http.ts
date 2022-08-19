@@ -117,6 +117,15 @@ class _ProfileService {
       data
     );
   };
+
+  updateLockCommunication = (locked: boolean): AxiosPromise<any> => {
+    return axiosWithToken.patch(
+      backEndRoutes.profile.updateLockCommunication(),
+      {
+        locked,
+      }
+    );
+  };
 }
 
 export const ProfileService = new _ProfileService();
