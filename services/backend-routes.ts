@@ -5,8 +5,9 @@ export const backEndRoutes = {
     login: () => `${BASE_URL}​/auth/login`,
     register: () => `${BASE_URL}/api/register`,
     password: {
+      sendCode: () => `${BASE_URL}/sms-api/send`,
       reset: () => `${BASE_URL}/api/reset/password`,
-      recover: () => `${BASE_URL}/api/recover/password`,
+      recover: () => `${BASE_URL}/auth/reset-password`,
     },
     resendVerification: (email) =>
       `${BASE_URL}/api/resend/verification/${email}`,

@@ -31,8 +31,8 @@ function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/#testimonial">
-                  <a>რას ამბობენ ჩენზე</a>
+                <Link href="/#contact">
+                  <a>კონტაქტი</a>
                 </Link>
               </li>
               <li>
@@ -43,6 +43,11 @@ function Footer() {
               <li>
                 <Link href="/#faq">
                   <a>წესები და პირობები</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/#faq">
+                  <a>კონფიდენციალურობის პოლიტიკა</a>
                 </Link>
               </li>
             </ul>
@@ -132,6 +137,7 @@ function Footer() {
           </div>
         </div>
         <div className="copyRight text-center">
+          <div>ებ გვერდის მფლობელი - / ი.მ. მარიამ ხანთაძე</div>
           <span>
             <svg
               width="97"

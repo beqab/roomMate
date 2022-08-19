@@ -15,7 +15,11 @@ const PayModal = ({
       <div className="buyModal">
         <h2>სერვისის სარგებლობისთვის საჭიროა მომსახურების საფასურის გადახდა</h2>
         <div>
-          <p className="text-center">მომსახურების საფასური 10 ₾</p>
+          <p className="text-center">
+            <div>მომსახურების საფასური 30 ლარი</div>
+            <div>პარტნიორი უნივერსიტეტის სტუდენტებისთვის - 10 ლარი</div>
+          </p>
+
           <div className="d-flex align-items-center w-100 justify-content-center">
             <Button onClick={setClose} className="btn btn-light mr-3">
               გაუქმება

@@ -29,23 +29,16 @@ const Partners = () => {
       }}
     >
       <SwiperSlide>
-        <img src="./imgs/image 9.png" />
+        <img src="./imgs/kavk 1.png" />
       </SwiperSlide>
       <SwiperSlide>
-        <img src="./imgs/image 10.png" />
+        <img src="./imgs/tv 1.png" />
       </SwiperSlide>
       <SwiperSlide>
-        <img src="./imgs/image 11.png" />
+        <img src="./imgs/Untitled-1ს 1.png" />
       </SwiperSlide>
       <SwiperSlide>
-        <img src="./imgs/image 12.png" />
-      </SwiperSlide>
-      <SwiperSlide>
-        <img src="./imgs/image 13.png" />
-      </SwiperSlide>
-
-      <SwiperSlide>
-        <img src="./imgs/image 15.png" />
+        <img src="./imgs/sam 1.png" />
       </SwiperSlide>
     </Swiper>
   );

@@ -79,6 +79,7 @@ function Contact() {
           {...register("name", {
             required: "სახელი აუცილებელია",
           })}
+          autocomplete="off"
         />
       </FormGroup>
 
@@ -87,6 +88,7 @@ function Contact() {
       >
         <Input
           useRef={register("last_name")}
+          autocomplete="off"
           type="last_name"
           hasError={!!errors?.last_name}
           placeholder="გვარი"
@@ -107,6 +109,7 @@ function Contact() {
         <Input
           type="text"
           name={"email"}
+          autocomplete="off"
           placeholder="ელ.ფოსტა"
           hasError={!!errors?.email}
           onChange={() => {

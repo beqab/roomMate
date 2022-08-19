@@ -8,22 +8,20 @@ import { setCurrentUser } from "../redux/action-creators/index";
 import Header from "../components/Header";
 import Footer from "../components/footer";
 import axios from "axios";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import Logo from "../components/svg/logo";
 
 interface ILoginForm {
-  password: string;
   phone: string;
 }
 
 interface IErrorMsg {
   phone?: string | Array<string>;
-  password?: string | Array<string>;
 }
 
-const Login = () => {
+const SendResetCode = () => {
   const dispatch = useDispatch();
   const {
     register,
@@ -38,17 +36,28 @@ const Login = () => {
 
   const [load, setLoad] = useState(false);
 
-  const submit = handleSubmit(async (data: any) => {
+  const submit = handleSubmit(async (data) => {
     // console.log(errors);'
 
     setLoad(true);
     try {
-      const res = await AuthService.login(data);
+      const res = await AuthService.sendResetCode(data.phone);
 
       // debugger;
-      dispatch(setCurrentUser({ user: null, token: res.data.access_token }));
+      //   dispatch(setCurrentUser({ user: null, token: res.data.access_token }));
       setLoad(false);
-      Router.push("/profile");
+      toast.success("კოდი გამოგზავნილია თვენ ნომერზე", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setTimeout(() => {
+        Router.push(`/passwordReset?phone=${data.phone}`);
+      }, 2000);
     } catch (e) {
       console.log(e);
       setLoad(false);
@@ -75,19 +84,9 @@ const Login = () => {
 
       <div className="container loginSection w-25 mt-5">
         <div className="loginSection_container">
-          <div className="leftSide d-none d-md-flex ">
-            <div>
-              <Link href="/">
-                <a>
-                  <Logo />
-                </a>
-              </Link>
-              <p>იპოვე ოთახის მეზობელი და გაიყავი ბინის ქირა</p>
-            </div>
-          </div>
-          <div className="form_Wrapper">
+          <div className="form_Wrapper m-auto">
             <form onSubmit={submit} className="contentWrapper">
-              <h2 className="form_title">ავტორიზაცია</h2>
+              <h2 className="form_title">პაროლის აღდგენა</h2>
 
               <FormGroup
                 errorMessage={
@@ -102,38 +101,16 @@ const Login = () => {
                 <Input
                   type="number"
                   name={"phone"}
-                  placeholder="579121212"
+                  placeholder="+995"
                   hasError={!!errors?.phone}
                   onChange={() => {
                     //   clearError("phone");
                     //   setUnVerify(false);
                   }}
                   useRef={register("phone")}
+                  className="w-100"
                   {...register("phone", {
                     required: "მოობილური აუცილებელია",
-                  })}
-                />
-              </FormGroup>
-
-              <FormGroup
-                errorMessage={errors?.password ? errors.password.message : ""}
-                Label={
-                  <label
-                    className="form-control-label d-flex "
-                    htmlFor="inputSuccess2"
-                  >
-                    <span> პაროლი </span>
-                  </label>
-                }
-              >
-                <Input
-                  className="password"
-                  useRef={register("password")}
-                  type="password"
-                  hasError={!!errors?.password}
-                  placeholder="password"
-                  {...register("password", {
-                    required: "პაროლი აუცილებელია",
                   })}
                 />
               </FormGroup>
@@ -153,14 +130,14 @@ const Login = () => {
                 loading={load}
                 className="btn btn-primary w-100 mt-3 py-2 mb-3"
               >
-                შესვლა
+                გაგზავნა
               </Button>
               <Link href="/createProfile">
                 <a className="label">რეგისტრაცია</a>
               </Link>
               <br />
-              <Link href="/seandresetcode">
-                <a className="label">დაგავიწყდა პაროლი?</a>
+              <Link href="/login">
+                <a className="label">ავტორიზაცია</a>
               </Link>
             </form>
           </div>
@@ -171,34 +148,4 @@ const Login = () => {
   );
 };
 
-export default Login;
-
-// import React from "react";
-// import { useForm } from "react-hook-form";
-
-// export default function App() {
-//   const {
-//     register,
-//     handleSubmit,
-//     // watch,
-//     formState: { errors },
-//   } = useForm();
-//   const onSubmit = (data) => console.log(data);
-
-//   //   console.log(watch("example")); // watch input value by passing the name of it
-
-//   return (
-//     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-//     <form onSubmit={handleSubmit(onSubmit)}>
-//       {/* register your input into the hook by invoking the "register" function */}
-//       <input defaultValue="test" {...register("example")} />
-
-//       {/* include validation with required or other standard HTML validation rules */}
-//       <input {...register("exampleRequired", { required: true })} />
-//       {/* errors will return when field validation fails  */}
-//       {errors.exampleRequired && <span>This field is required</span>}
-
-//       <input type="submit" />
-//     </form>
-//   );
-// }
+export default SendResetCode;

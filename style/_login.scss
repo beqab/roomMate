@@ -78,7 +78,19 @@
     width: calc(100% - 260px);
   }
 }
-
+.resetPassword {
+  .loginSection_container {
+    height: inherit;
+    .form_Wrapper {
+      padding-top: 30px;
+      padding-bottom: 30px;
+      max-width: 300px;
+      input {
+        width: 100%;
+      }
+    }
+  }
+}
 @media only screen and (max-width: 768px) {
   .login .loginSection {
     width: 100%;

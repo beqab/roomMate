@@ -13,6 +13,7 @@ interface IInput {
   onChange?: any;
   defaultValue?: string;
   value?: string;
+  autocomplete?: any;
 
   //   useRef?: React.RefObject<any> | undefined | any;
 }
@@ -28,12 +29,14 @@ export const Input: React.FC<IInput> = ({
   onChange,
   defaultValue,
   value,
+  ...rest
 }) => {
   return (
     <input
       {...useRef}
       // ref={useRef}
       // ref={inputRef}
+      {...rest}
       required={required}
       type={type}
       name={name}

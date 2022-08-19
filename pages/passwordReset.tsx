@@ -8,22 +8,24 @@ import { setCurrentUser } from "../redux/action-creators/index";
 import Header from "../components/Header";
 import Footer from "../components/footer";
 import axios from "axios";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import Logo from "../components/svg/logo";
 
 interface ILoginForm {
   password: string;
-  phone: string;
+  passwordRepeat: string;
+  code: string;
 }
 
 interface IErrorMsg {
-  phone?: string | Array<string>;
+  code?: string | Array<string>;
+  passwordRepeat?: string | Array<string>;
   password?: string | Array<string>;
 }
 
-const Login = () => {
+const PasswordReset = () => {
   const dispatch = useDispatch();
   const {
     register,
@@ -36,23 +38,24 @@ const Login = () => {
 
   //   const [errors, setErrors] = useState<IErrorMsg>({});
 
+  const router = useRouter();
   const [load, setLoad] = useState(false);
 
-  const submit = handleSubmit(async (data: any) => {
+  const submit = handleSubmit(async (data) => {
     // console.log(errors);'
 
     setLoad(true);
     try {
-      const res = await AuthService.login(data);
+      const res = await AuthService.passwordRecover({
+        code: data.code,
+        password: data.password,
+        phone: router.query.phone as string,
+      });
 
-      // debugger;
-      dispatch(setCurrentUser({ user: null, token: res.data.access_token }));
+      // debugger
+      //   dispatch(setCurrentUser({ user: null, token: res.data.access_token }));
       setLoad(false);
-      Router.push("/profile");
-    } catch (e) {
-      console.log(e);
-      setLoad(false);
-      toast.error("error", {
+      toast.error("პაროლი წარმატებით შეიცვალა", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -61,6 +64,28 @@ const Login = () => {
         draggable: true,
         progress: undefined,
       });
+      setTimeout(() => {
+        Router.push("/login");
+      }, 2000);
+      //   Router.push("/profile"
+    } catch (e) {
+      console.log(e);
+      setLoad(false);
+      if (e.response.data.message) {
+        let msg =
+          typeof e.response.data.message === "string"
+            ? e.response.data.message
+            : e.response.data.message[0];
+        toast.error(msg, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
     }
     // console.log(data);
   });
@@ -68,49 +93,43 @@ const Login = () => {
   console.log(errors);
 
   return (
-    <div className="login">
+    <div className="login resetPassword">
       <ToastContainer />
 
       <Header />
 
       <div className="container loginSection w-25 mt-5">
         <div className="loginSection_container">
-          <div className="leftSide d-none d-md-flex ">
-            <div>
-              <Link href="/">
-                <a>
-                  <Logo />
-                </a>
-              </Link>
-              <p>იპოვე ოთახის მეზობელი და გაიყავი ბინის ქირა</p>
-            </div>
-          </div>
-          <div className="form_Wrapper">
+          <div className="form_Wrapper m-auto">
             <form onSubmit={submit} className="contentWrapper">
-              <h2 className="form_title">ავტორიზაცია</h2>
+              <h2 className="form_title">პაროლის აღდგენა</h2>
 
+              <label className="mb-3 text-center">
+                გთხოვთ შიყვანოთ {router?.query?.phone} ნომერზე გამოგზავნილი კოდი
+              </label>
               <FormGroup
                 errorMessage={
-                  errors?.phone?.message
-                    ? errors?.phone?.message
-                    : errors?.phone?.type === "pattern"
+                  errors?.code?.message
+                    ? errors?.code?.message
+                    : errors?.code?.type === "pattern"
                     ? "მობილური"
                     : ""
                 }
-                Label="მობილურის ნომერი"
+                Label="SMS კოდი"
               >
                 <Input
-                  type="number"
-                  name={"phone"}
-                  placeholder="579121212"
-                  hasError={!!errors?.phone}
+                  type="text"
+                  name={"code"}
+                  placeholder="sms code"
+                  hasError={!!errors?.code}
                   onChange={() => {
-                    //   clearError("phone");
+                    //   clearError("code");
                     //   setUnVerify(false);
                   }}
-                  useRef={register("phone")}
-                  {...register("phone", {
-                    required: "მოობილური აუცილებელია",
+                  useRef={register("code")}
+                  className="w-100"
+                  {...register("code", {
+                    required: "SMS კოდი აუცილებელია",
                   })}
                 />
               </FormGroup>
@@ -131,9 +150,40 @@ const Login = () => {
                   useRef={register("password")}
                   type="password"
                   hasError={!!errors?.password}
-                  placeholder="password"
+                  placeholder="******"
                   {...register("password", {
                     required: "პაროლი აუცილებელია",
+                  })}
+                />
+              </FormGroup>
+
+              <FormGroup
+                errorMessage={
+                  errors?.passwordRepeat &&
+                  errors?.passwordRepeat.type === "required"
+                    ? "პაროლი აუცილებელია"
+                    : "პაროლები არ მეთხვევა"
+                }
+                Label={
+                  <label
+                    className="form-control-label d-flex "
+                    htmlFor="inputSuccess2"
+                  >
+                    <span> გაიმეორე პაროლი </span>
+                  </label>
+                }
+              >
+                <Input
+                  className="passwordRepeat"
+                  useRef={register("passwordRepeat")}
+                  type="password"
+                  hasError={!!errors?.passwordRepeat}
+                  placeholder="******"
+                  {...register("passwordRepeat", {
+                    required: "პაროლი აუცილებელია",
+                    validate: {
+                      isMatch: (value) => value === watch("password"),
+                    },
                   })}
                 />
               </FormGroup>
@@ -153,7 +203,7 @@ const Login = () => {
                 loading={load}
                 className="btn btn-primary w-100 mt-3 py-2 mb-3"
               >
-                შესვლა
+                პაროლის აღდგენა
               </Button>
               <Link href="/createProfile">
                 <a className="label">რეგისტრაცია</a>
@@ -171,34 +221,4 @@ const Login = () => {
   );
 };
 
-export default Login;
-
-// import React from "react";
-// import { useForm } from "react-hook-form";
-
-// export default function App() {
-//   const {
-//     register,
-//     handleSubmit,
-//     // watch,
-//     formState: { errors },
-//   } = useForm();
-//   const onSubmit = (data) => console.log(data);
-
-//   //   console.log(watch("example")); // watch input value by passing the name of it
-
-//   return (
-//     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-//     <form onSubmit={handleSubmit(onSubmit)}>
-//       {/* register your input into the hook by invoking the "register" function */}
-//       <input defaultValue="test" {...register("example")} />
-
-//       {/* include validation with required or other standard HTML validation rules */}
-//       <input {...register("exampleRequired", { required: true })} />
-//       {/* errors will return when field validation fails  */}
-//       {errors.exampleRequired && <span>This field is required</span>}
-
-//       <input type="submit" />
-//     </form>
-//   );
-// }
+export default PasswordReset;

@@ -10,6 +10,13 @@ class _AuthService {
   register = (data: any) => {
     return axios.post(backEndRoutes.auth.register(), data);
   };
+
+  sendResetCode = (phone: string) => {
+    return axios.post(backEndRoutes.auth.password.sendCode(), { phone });
+  };
+  passwordRecover = (data: { code: any; password: string; phone: string }) => {
+    return axios.post(backEndRoutes.auth.password.recover(), data);
+  };
 }
 
 export const AuthService = new _AuthService();

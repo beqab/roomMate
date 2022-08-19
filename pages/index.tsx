@@ -24,7 +24,7 @@ const IndexPage = () => {
         <section className="mainSection">
           <div className="container">
             <div className="row align-items-center">
-              <div className="col-md-6 ">
+              <div className="col-md-12 ">
                 <h1>
                   იპოვე ოთახის მეზობელი და
                   <br />
@@ -247,7 +247,7 @@ const IndexPage = () => {
           <Partners />
         </div>
       </section>
-      <section id="testimonial" className="testimonialSection">
+      {/* <section id="testimonial" className="testimonialSection">
         <div className="container">
           <h2>რას ამბობენ ჩვენზე</h2>
           <div className="row">
@@ -298,7 +298,7 @@ const IndexPage = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       <section id="faq" className="faqSection">
         <div className="container">
           <h2>ხშირად დასმული შეკითხვები</h2>
