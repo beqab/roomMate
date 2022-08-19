@@ -126,6 +126,15 @@ class _ProfileService {
       }
     );
   };
+
+  contactForm = (data: {
+    firstname: string;
+    lastname: string;
+    email: string;
+    text: string;
+  }): AxiosPromise<any> => {
+    return axios.post(backEndRoutes.profile.contactForm(), data);
+  };
 }
 
 export const ProfileService = new _ProfileService();

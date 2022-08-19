@@ -24,6 +24,7 @@ export const backEndRoutes = {
     approveRejectContact: (id: number) => `${BASE_URL}/requests/answer/${id}`,
     updateLockCommunication: () =>
       `${BASE_URL}/users/update-lock-communication`,
+    contactForm: () => `${BASE_URL}/contact/send`,
   },
   questions: {
     getQuestions: () => `${BASE_URL}​/questions`,

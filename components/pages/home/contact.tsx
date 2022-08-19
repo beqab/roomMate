@@ -3,6 +3,8 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { FormGroup, Button, Input } from "../../common/form";
 import classnames from "classnames";
+import { ProfileService } from "../../../services/profile/profile.http";
+import { ToastContainer, toast } from "react-toastify";
 
 interface IContactForm {
   name: string;
@@ -25,16 +27,49 @@ function Contact() {
     handleSubmit,
     control,
     watch,
+    reset,
     getValues,
     formState: { errors },
   } = useForm<IContactForm>();
 
-  const submit = handleSubmit((data: any) => {
+  const submit = handleSubmit((data) => {
     // console.log(errors);
+    ProfileService.contactForm({
+      firstname: data.name,
+      lastname: data.last_name,
+      email: data.email,
+      text: data.text,
+    })
+      .then((res) => {
+        // alert("saved");
+        toast.success("შეტყობინება წარმატეით გაიგზავნა", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        reset({ name: "", last_name: "", email: "", text: "" });
+      })
+      .catch((err) => {
+        // console.log("err");
+        toast.error("დაფიქსირდა შეცდომა", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
     console.log(data);
   });
   return (
     <form onSubmit={submit} className="contactSection_from">
+      <ToastContainer />
       <FormGroup errorMessage={errors?.name ? errors.name.message : ""}>
         <Input
           useRef={register("name")}
