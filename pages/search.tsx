@@ -107,6 +107,7 @@ const Search = () => {
     router.push("/search", {
       query: {
         filter: JSON.stringify(cleanUpSearchObject),
+        page: 1,
       },
     });
   };

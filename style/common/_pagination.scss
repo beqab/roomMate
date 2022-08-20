@@ -2,13 +2,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.356);
   padding: 4px 0;
 
   & > a {
-    font-size: 17px;
-    width: 27px;
-    height: 27px;
+    text-decoration: none;
+    box-shadow: 0px 2px 4px rgba(170, 170, 170, 0.25);
+    border-radius: 30px;
+    background-color: #fff;
+    font-size: 15px;
+    margin: 2px;
+    width: 24px;
+    height: 24px;
     text-align: center;
     color: #23393d;
     display: flex;
@@ -17,12 +22,22 @@
     justify-content: center;
     span {
       margin-top: 2px;
+      font-weight: bold;
+    }
+    &:hover {
+      border: 1px solid $brandColor;
+      color: $brandColor;
     }
     &.active {
       background-color: transparent;
-      color: #f1c44f;
-      border-radius: 3px;
-      border: 1px solid #f1c44f;
+      color: #fff !important;
+      background: $brandColor;
+      border-radius: 30px;
+
+      border: 1px solid $brandColor;
+      span {
+        color: #fff !important;
+      }
     }
   }
   button {
