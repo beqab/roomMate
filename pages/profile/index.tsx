@@ -14,10 +14,21 @@ import QuestionPreview from "../../components/pages/profile/QuestionPreview";
 import ProfileTab from "../../components/pages/profile/components/profileTab";
 import Notifications from "../../components/pages/profile/notifications";
 
+const tabs = [
+  {
+    label: "შეტყობინებები",
+    path: "/profile",
+  },
+  {
+    label: "ფავორიტები",
+    path: "/profile/favorites",
+  },
+];
+
 const Profile = (props) => {
   return (
     <ProfileWrapper>
-      <ProfileTab />
+      <ProfileTab tabs={tabs} />
       <Notifications />
     </ProfileWrapper>
   );

@@ -79,6 +79,12 @@
   }
 }
 .resetPassword {
+  &_fromProfile {
+    min-height: inherit;
+    .loginSection {
+      padding-top: 0px !important;
+    }
+  }
   .loginSection_container {
     height: inherit;
     .form_Wrapper {

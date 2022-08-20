@@ -86,6 +86,11 @@
       &.active {
         background-color: #e2eeed;
         color: $brandColor;
+
+        .payStatus {
+          background-color: #e2eeed;
+        }
+
         svg {
           path {
             stroke: $brandColor;
@@ -285,7 +290,6 @@
   justify-content: center;
   font-size: 13px;
   margin-top: 6px;
-  margin-top: -10px;
   > div {
     cursor: pointer;
   }
@@ -300,8 +304,40 @@
 //   max-width: 1300px;
 //   margin: auto;
 // }
+.toltipWrapper {
+  position: relative;
+  &:hover {
+    p {
+      display: block;
+    }
+  }
+  p {
+    position: absolute;
+    display: none;
+    background: #ffff;
+    box-shadow: 0px 7px 16px rgb(170 170 170 / 25%);
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 12px;
+    top: 0px;
+    text-align: center;
+    transform: translate(30%, -100%);
+  }
+}
 
 @media only screen and (max-width: 768px) {
+  .contactViewSwitch {
+    align-items: center;
+    text-align: center;
+    max-width: 300px;
+    margin: auto;
+  }
+  .toltipWrapper {
+    p {
+      min-width: 200px;
+      transform: translate(9%, -100%);
+    }
+  }
   .profile_userHeading {
     text-align: center;
   }

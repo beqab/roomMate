@@ -10,6 +10,21 @@
           text-decoration: none;
           transition: 0.3s;
           white-space: nowrap;
+          &.statusLink {
+            color: #db0505 !important;
+            // height: 19px;
+            display: flex;
+            align-items: center;
+            line-height: 24px;
+            svg {
+              width: 16px;
+              height: 16px;
+              margin-left: 3px;
+              path {
+                fill: #db0505;
+              }
+            }
+          }
           &:hover {
             color: $brandColor;
             svg {
@@ -97,8 +112,20 @@ header {
 }
 
 @media only screen and (max-width: 768px) {
+  .headerWrapper.profile {
+    hr {
+      border-color: #ccc;
+    }
+  }
+  .mobileLogout {
+    stroke: $brandColor;
+  }
   .headerWrapper.profile ul * {
     color: $brandColor;
+  }
+  .statusLink {
+    display: block !important;
+    line-height: 19px !important;
   }
   .headerWrapper.profile ul svg path {
     fill: $brandColor;
@@ -117,7 +144,7 @@ header {
     }
     .navList {
       position: absolute;
-      z-index: 3;
+      z-index: 300;
       flex-direction: column;
       background: $brandColorDark;
       width: 100%;

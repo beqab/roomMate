@@ -12,6 +12,7 @@ import ProfileTab from "../../components/pages/profile/components/profileTab";
 import Loader from "../../components/common/loader";
 import ProfileWrapper from "../../components/pages/profile/profileWrapper";
 import QuestionEdit from "../../components/pages/profile/questionEdit";
+import ResetPassword from "../../components/pages/profile/resetPsswors";
 
 const tabs = [
   {
@@ -28,8 +29,7 @@ function Edit(props) {
   return (
     <ProfileWrapper consumerPage={"edit"}>
       <ProfileTab tabs={tabs} />
-
-      <QuestionEdit />
+      <ResetPassword />
     </ProfileWrapper>
   );
 }

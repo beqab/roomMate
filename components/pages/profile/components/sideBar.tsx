@@ -7,7 +7,7 @@ import { ProfileService } from "../../../../services/profile/profile.http";
 import { useTypedSelector } from "../../../hooks/useTypeSelector";
 import { setCurrentUser } from "../../../../redux/action-creators/index";
 import { useDispatch } from "react-redux";
-import StatusIcon from "../../../svg/statusIcon";
+import { AlertIcon } from "../../../svg/statusIcon";
 
 interface ISidebar {
   firstname: string;
@@ -93,9 +93,14 @@ const SideBar: React.FC<ISidebar> = (props) => {
               <span className="pr-3">
                 ჩართთეთ ან გამორთეთ კონტაქტის ხილვადობა ყველსასთვის
               </span>
-              <div className="pointer">
-                <StatusIcon stroke="blue" fill="blue" />
-              </div>
+              <span className="pointer toltipWrapper">
+                <AlertIcon stroke="blue" fill="blue" />
+                <p>
+                  კონტაქტის ხილვადობის გამორთვის შემთხვევაში სხვა მომხმარებლები
+                  ვერ შეძლებს, რომ თქვენი ნებართვის გარეშე ნახონ თქვენი
+                  საკონტაქტო ინფორმაცია.
+                </p>
+              </span>
             </p>
 
             <div className="form-check form-switch ">
@@ -250,7 +255,7 @@ const SideBar: React.FC<ISidebar> = (props) => {
                   {!user?.payed ? (
                     <span className="btn  payStatus">
                       არაქტიური
-                      <StatusIcon stroke="#db0505" fill="#db0505" />
+                      <AlertIcon stroke="#db0505" fill="#db0505" />
                     </span>
                   ) : (
                     <span className="btn btn-success  ">აქტიური</span>

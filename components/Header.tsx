@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { logout } from "../redux/action-creators";
 import Logo from "../components/svg/logo";
+import { AlertIcon, CheckIcon } from "../components/svg/statusIcon";
 
 interface IProps {
   type?: "profile";
@@ -97,29 +98,31 @@ function Header({ type }: IProps) {
                     ["d-none"]: !user,
                   })}
                 >
-                  <Link href="/profile/balance">
-                    <a
-                      className={classnames({
-                        active: "/profile/balance" === router.asPath,
-                      })}
-                    >
-                      <svg
-                        className="mr-3"
-                        width="16"
-                        height="18"
-                        viewBox="0 0 6 12"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M2.25127 10.6111C1.66805 10.4859 1.15061 10.278 0.722125 9.88917C0.242895 9.4546 0.0142455 8.90857 0.00422244 8.26925C-0.00266845 7.83907 0.305545 7.50532 0.712108 7.48779C0.811762 7.47997 0.911954 7.49272 1.00647 7.52524C1.10099 7.55776 1.18782 7.60936 1.26155 7.67683C1.33527 7.7443 1.39433 7.82621 1.43506 7.91745C1.47578 8.0087 1.4973 8.10735 1.49828 8.20726C1.51457 8.59048 1.71442 8.83907 2.04393 8.98372C2.68478 9.26549 3.33815 9.27113 3.97336 8.97683C4.60858 8.68253 4.72948 7.80213 4.17571 7.38197C3.83053 7.12023 3.40268 6.95241 2.99173 6.79399C2.31642 6.5335 1.6098 6.35003 1.01843 5.90169C0.182129 5.26863 -0.2188 4.01127 0.120733 3.02129C0.403885 2.19474 1.03973 1.75266 1.83469 1.49593C1.96687 1.45335 2.10218 1.42141 2.25127 1.38071C2.25127 1.17407 2.24751 0.971818 2.25127 0.77019C2.26067 0.331868 2.58455 0.00062707 2.99988 8.96433e-07C3.41522 -0.000625277 3.74097 0.326862 3.75162 0.76581C3.756 0.968065 3.75162 1.17095 3.75162 1.36318C4.03915 1.46274 4.3198 1.53475 4.57852 1.65435C5.4593 2.06199 5.98112 2.72824 5.99929 3.72824C6.00289 3.82607 5.98705 3.92365 5.95272 4.01534C5.91839 4.10703 5.86624 4.19102 5.79926 4.26245C5.73228 4.33388 5.65181 4.39135 5.56249 4.43153C5.47318 4.47171 5.37679 4.49381 5.27888 4.49655C5.18093 4.50134 5.083 4.48656 4.99083 4.45309C4.89866 4.41962 4.81409 4.36812 4.74206 4.3016C4.67003 4.23508 4.61198 4.15487 4.57132 4.06568C4.53065 3.97648 4.50818 3.88007 4.50522 3.78209C4.48893 3.4402 4.32981 3.19599 4.03789 3.05323C3.34191 2.71384 2.6309 2.70445 1.94557 3.06951C1.38491 3.36819 1.31349 4.22229 1.83406 4.62116C2.13601 4.85347 2.50937 5.00063 2.86644 5.15028C3.28992 5.32749 3.73782 5.44708 4.1613 5.62492C5.38474 6.13838 6.02435 7.07388 5.99929 8.29367C5.98175 9.15779 5.57331 9.80087 4.82722 10.2135C4.50335 10.3926 4.14189 10.5034 3.75224 10.6637C3.75224 10.8103 3.75224 11.0113 3.75224 11.2116C3.74661 11.6738 3.43901 11.9994 3.00488 12C2.57076 12.0006 2.25942 11.6738 2.25315 11.2141C2.24877 11.0188 2.25127 10.824 2.25127 10.6111Z"
-                          fill="#fff"
-                        />
-                      </svg>
-                      სტატუსი
-                    </a>
-                  </Link>
+                  {user?.payed ? (
+                    <>
+                      <Link href="/profile/balance">
+                        <a className="d-block d-md-none">
+                          <CheckIcon className="ml-3" />
+                          აქტიური
+                        </a>
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <Link href="/profile/balance">
+                        <a className="statusLink">
+                          <AlertIcon
+                            className="mr-3"
+                            fill="#DB0505"
+                            stroke="#DB0505"
+                          />
+                          არააქტიური{" "}
+                        </a>
+                      </Link>
+                    </>
+                  )}
                 </li>
+
                 <li
                   className={classnames("d-block d-md-none", {
                     ["d-none"]: !user,
@@ -127,7 +130,7 @@ function Header({ type }: IProps) {
                 >
                   <a href="#" onClick={signOut}>
                     <svg
-                      className="mr-3"
+                      className="mr-3 mobileLogout"
                       width="16"
                       height="16"
                       viewBox="0 0 16 16"
@@ -142,6 +145,7 @@ function Header({ type }: IProps) {
                         strokeLinejoin="round"
                       />
                       <path
+                        className=" mobileLogout"
                         d="M5.33325 4.66671L1.99992 8.00004L5.33325 11.3334"
                         stroke="white"
                         strokeWidth="2"
@@ -149,6 +153,7 @@ function Header({ type }: IProps) {
                         strokeLinejoin="round"
                       />
                       <path
+                        className=" mobileLogout"
                         d="M2 8L10 8"
                         stroke="white"
                         strokeWidth="2"
@@ -193,6 +198,32 @@ function Header({ type }: IProps) {
                   <Link href="/#contact">
                     <a>კონტაქტი</a>
                   </Link>
+                </li>
+                <li
+                  className={classnames({
+                    ["d-none"]: !user,
+                    ["d-none d-md-block"]: user,
+                  })}
+                >
+                  {user?.payed ? (
+                    <>
+                      <Link href="/profile/balance">
+                        <a className="">
+                          აქტიური
+                          <CheckIcon className="ml-3" />
+                        </a>
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <Link href="/profile/balance">
+                        <a className="statusLink">
+                          არააქტიური{" "}
+                          <AlertIcon fill="#DB0505" stroke="#DB0505" />
+                        </a>
+                      </Link>
+                    </>
+                  )}
                 </li>
                 <li>
                   <div className="langs">

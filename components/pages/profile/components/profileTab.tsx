@@ -3,28 +3,27 @@ import Link from "next/link";
 import classnames from "classnames";
 import { useRouter } from "next/router";
 
-const ProfileTab = () => {
+interface IProps {
+  tabs: { label: string; path: string }[];
+}
+
+const ProfileTab: React.FC<IProps> = ({ tabs }) => {
   const router = useRouter();
   return (
     <div className="profile_tab d-flex">
-      <Link href="/profile">
-        <a
-          className={classnames("btn", {
-            active: router.asPath === "/profile",
-          })}
-        >
-          შეტყობინებები
-        </a>
-      </Link>
-      <Link href="/profile/favorites">
-        <a
-          className={classnames("btn", {
-            active: router.asPath === "/profile/favorites",
-          })}
-        >
-          ფავორიტები
-        </a>
-      </Link>
+      {tabs.map((el, i) => {
+        return (
+          <Link key={i} href={el.path}>
+            <a
+              className={classnames("btn", {
+                active: router.asPath === el.path,
+              })}
+            >
+              {el.label}
+            </a>
+          </Link>
+        );
+      })}
     </div>
   );
 };

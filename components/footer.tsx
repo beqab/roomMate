@@ -137,7 +137,7 @@ function Footer() {
           </div>
         </div>
         <div className="copyRight text-center">
-          <div>ებ გვერდის მფლობელი - / ი.მ. მარიამ ხანთაძე</div>
+          <div>ვებ გვერდის მფლობელი - / ი.მ. მარიამ ხანთაძე</div>
           <span>
             <svg
               width="97"
