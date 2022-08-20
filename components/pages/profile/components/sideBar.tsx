@@ -8,6 +8,7 @@ import { useTypedSelector } from "../../../hooks/useTypeSelector";
 import { setCurrentUser } from "../../../../redux/action-creators/index";
 import { useDispatch } from "react-redux";
 import { AlertIcon } from "../../../svg/statusIcon";
+import { useCheckUnAuthResponse } from "../../../hooks/useCheckUnauthRespnse";
 
 interface ISidebar {
   firstname: string;
@@ -27,6 +28,7 @@ const SideBar: React.FC<ISidebar> = (props) => {
   const dispatch = useDispatch();
 
   const { user } = useTypedSelector((state) => state.profile);
+  const checkAuth = useCheckUnAuthResponse();
 
   const userContactRequest = () => {
     setStatus("load");
@@ -39,6 +41,9 @@ const SideBar: React.FC<ISidebar> = (props) => {
         setStatus(false);
 
         console.log(err);
+        if (err?.response?.data?.message === "Unauthorized") {
+          checkAuth();
+        }
       });
   };
 
@@ -58,6 +63,9 @@ const SideBar: React.FC<ISidebar> = (props) => {
       })
       .catch((err) => {
         console.log(err);
+        if (err?.response?.data?.message === "Unauthorized") {
+          checkAuth();
+        }
       });
   };
   return (
@@ -72,7 +80,7 @@ const SideBar: React.FC<ISidebar> = (props) => {
         <div>ჩემ შესახებ</div>
         <p>{props?.about_me}</p>
       </div>
-      {!props.myProfile && props.is_locked_communication ? (
+      {!props.myProfile && !props.phone ? (
         <div className="profile_contacts">
           <p className="text-center">
             კონტაქტების სანახავად გთხოვთ გააგზავნოთ მოთხოვნა
@@ -88,41 +96,43 @@ const SideBar: React.FC<ISidebar> = (props) => {
         </div>
       ) : (
         <>
-          <div className="contactViewSwitch flex-column">
-            <p>
-              <span className="pr-3">
-                ჩართთეთ ან გამორთეთ კონტაქტის ხილვადობა ყველსასთვის
-              </span>
-              <span className="pointer toltipWrapper">
-                <AlertIcon stroke="blue" fill="blue" />
-                <p>
-                  კონტაქტის ხილვადობის გამორთვის შემთხვევაში სხვა მომხმარებლები
-                  ვერ შეძლებს, რომ თქვენი ნებართვის გარეშე ნახონ თქვენი
-                  საკონტაქტო ინფორმაცია.
-                </p>
-              </span>
-            </p>
+          {props.myProfile ? (
+            <div className="contactViewSwitch flex-column">
+              <p>
+                <span className="pr-3">
+                  ჩართთეთ ან გამორთეთ კონტაქტის ხილვადობა ყველსასთვის
+                </span>
+                <span className="pointer toltipWrapper">
+                  <AlertIcon stroke="blue" fill="blue" />
+                  <p>
+                    კონტაქტის ხილვადობის გამორთვის შემთხვევაში სხვა
+                    მომხმარებლები ვერ შეძლებს, რომ თქვენი ნებართვის გარეშე ნახონ
+                    თქვენი საკონტაქტო ინფორმაცია.
+                  </p>
+                </span>
+              </p>
 
-            <div className="form-check form-switch ">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                checked={user?.is_locked_communication}
-                role="switch"
-                onChange={() => {
-                  handleChangeProfileLock();
-                }}
-                id="flexSwitchCheckDefault"
-              />
-              <label
-                className="form-check-label"
-                htmlFor="flexSwitchCheckDefault"
-              >
-                {/* კონტაqტის ხილვადობა{" "} */}
-                {!user?.is_locked_communication ? "ჩართვა" : "გამორთვა"}
-              </label>
+              <div className="form-check form-switch ">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  checked={user?.is_locked_communication}
+                  role="switch"
+                  onChange={() => {
+                    handleChangeProfileLock();
+                  }}
+                  id="flexSwitchCheckDefault"
+                />
+                <label
+                  className="form-check-label"
+                  htmlFor="flexSwitchCheckDefault"
+                >
+                  {/* კონტაqტის ხილვადობა{" "} */}
+                  {!user?.is_locked_communication ? "ჩართვა" : "გამორთვა"}
+                </label>
+              </div>
             </div>
-          </div>
+          ) : null}
 
           <div className="profile_contacts">
             <div>

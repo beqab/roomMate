@@ -22,9 +22,7 @@ const Range: React.FC<IProps> = ({
 
   return (
     <div className="search_item search_item-choice ">
-      <label>
-        {searchable_title || title} + {id}{" "}
-      </label>
+      <label>{searchable_title || title}</label>
       <div className="d-flex inputsWrapper">
         <input
           onChange={(e) => {

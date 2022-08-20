@@ -6,7 +6,7 @@ export const backEndRoutes = {
     register: () => `${BASE_URL}/api/register`,
     password: {
       sendCode: () => `${BASE_URL}/sms-api/send`,
-      reset: () => `${BASE_URL}/api/reset/password`,
+      reset: () => `${BASE_URL}/users/change-password`,
       recover: () => `${BASE_URL}/auth/reset-password`,
     },
     resendVerification: (email) =>
@@ -32,5 +32,6 @@ export const backEndRoutes = {
     saveAnswers: () => `${BASE_URL}​/user-answers/save`,
     updateAnswers: () => `${BASE_URL}​/user-answers/update`,
     checkPhone: () => `${BASE_URL}​/users/check-phone`,
+    checkSmsCode: () => `${BASE_URL}/sms-api/check`,
   },
 };

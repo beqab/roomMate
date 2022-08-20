@@ -74,7 +74,7 @@ const Search = () => {
         setSearchResults(res.data.data);
       })
       .catch((err) => {
-        if (err.response.data.message === "Unauthorized") {
+        if (err?.response?.data?.message === "Unauthorized") {
           dispatch(logout());
           // router.push("/login");
           window.location.replace("/login");
@@ -113,7 +113,7 @@ const Search = () => {
       .catch((err) => {
         if (err.response) {
           console.log(err.response.data.message);
-          if (err.response.data.message === "Unauthorized") {
+          if (err?.response?.data?.message === "Unauthorized") {
             dispatch(logout());
             // router.push("/login");
             window.location.replace("/login");

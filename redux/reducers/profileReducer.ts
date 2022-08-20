@@ -17,6 +17,7 @@ interface IUser {
   about_me?: string;
   payed?: boolean;
   phone?: string;
+  notifications?: number;
   social_network?: string;
   is_locked_communication?: boolean;
   answeredAnswers: IAnsweredAnswers[];

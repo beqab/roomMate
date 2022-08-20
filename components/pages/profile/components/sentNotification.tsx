@@ -9,6 +9,7 @@ import classNames from "classnames";
 import { Button } from "../../../common/form";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { useCheckUnAuthResponse } from "../../../hooks/useCheckUnauthRespnse";
 
 const SentNotification = () => {
   const [sentNotifications, setSentNotifications] = useState<
@@ -16,6 +17,7 @@ const SentNotification = () => {
   >(null);
 
   const router = useRouter();
+  const checkUnAuth = useCheckUnAuthResponse();
 
   useEffect(() => {
     ProfileService.getSentNotifications()
@@ -25,6 +27,9 @@ const SentNotification = () => {
       })
       .catch((err) => {
         console.log(err);
+        if (err?.response?.data?.message === "Unauthorized") {
+          checkUnAuth();
+        }
       });
   }, []);
 
@@ -46,7 +51,10 @@ const SentNotification = () => {
         );
       })
       .catch((err) => {
-        console.log();
+        console.log(err);
+        if (err?.response?.data?.message === "Unauthorized") {
+          checkUnAuth();
+        }
       });
   };
 
@@ -54,7 +62,7 @@ const SentNotification = () => {
     <>
       {sentNotifications?.map((el, i) => {
         return (
-          <div key={i} className="col-12 col-sm-12 col-md-4">
+          <div key={i} className="">
             <ToastContainer />
             <NotificationsCard
               text={

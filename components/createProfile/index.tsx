@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { registerQuestions } from "./data";
 import CreateProfileContent from "./createProfileContent";
 import { Questions, IQuestions } from "../../services/questions/questions.http";
@@ -6,12 +6,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Router from "next/router";
 import { Button } from "../common/form/button";
+import { SmsCheckContext } from "./createProfileContent/context/smsCheckContext";
 
 function CreateProfileWrapper(props) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [questions, setQuestions] = useState<IQuestions[]>([]);
   const [loadQuestions, setLoadQuestions] = useState(false);
   const [registerLoad, setRegisterLoad] = useState(false);
+
+  const { smsCode, setIsVerify, isVerify } = useContext(SmsCheckContext);
 
   const [answersContainer, setAnswersContainer] = useState<{
     [key: string]: [];
@@ -99,36 +102,60 @@ function CreateProfileWrapper(props) {
           progress: undefined,
         });
       } else {
-        if (
-          questions[currentQuestionIndex].name === "phone" &&
-          answersContainer[questions[currentQuestionIndex].id].length > 0
-        ) {
+        if (questions[currentQuestionIndex].name === "phone") {
           console.log(
             answersContainer[questions[currentQuestionIndex].id] as []
           );
+          if (isVerify) {
+            debugger;
+            setCurrentQuestionIndex(currentQuestionIndex + 1);
+            return;
+          }
           let [phone] = answersContainer[
             questions[currentQuestionIndex].id
           ] as string[];
-          Questions.checkPhone(phone)
-            .then((res) => {
-              // debugger;
-              if (res.data.exists) {
-                toast.error("მოცემული ტელეფონის ნომერი უკვე გამოყენებულია", {
-                  position: "top-right",
-                  autoClose: 3000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                });
-              } else {
-                setCurrentQuestionIndex(currentQuestionIndex + 1);
-              }
-            })
-            .catch((err) => {
-              console.log(err.response);
-            });
+          // Questions.checkPhone(phone)
+          //   .then((res) => {
+
+          Questions.checkSmsCode({
+            phone: phone,
+            code: Number(smsCode),
+          }).then((res) => {
+            if (res.data) {
+              console.log(res);
+              setIsVerify(true);
+              setCurrentQuestionIndex(currentQuestionIndex + 1);
+            } else {
+              toast.error("SMS კოდი არასორია", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+            }
+          });
+
+          // debugger;
+          //   if (res.data.exists) {
+          //     toast.error("მოცემული ტელეფონის ნომერი უკვე გამოყენებულია", {
+          //       position: "top-right",
+          //       autoClose: 3000,
+          //       hideProgressBar: false,
+          //       closeOnClick: true,
+          //       pauseOnHover: true,
+          //       draggable: true,
+          //       progress: undefined,
+          //     });
+          //   } else {
+          //     setCurrentQuestionIndex(currentQuestionIndex + 1);
+          //   }
+          // })
+          // .catch((err) => {
+          //   console.log(err.response);
+          // });
         } else {
           setCurrentQuestionIndex(currentQuestionIndex + 1);
         }

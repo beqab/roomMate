@@ -10,7 +10,7 @@ import ReceiveNotification from "./components/receiveNotification";
 import SentNotification from "./components/sentNotification";
 const Notifications = () => {
   const [notificationType, setNotificationType] = useState<"sent" | "receive">(
-    "sent"
+    "receive"
   );
 
   return (
@@ -37,14 +37,13 @@ const Notifications = () => {
           გაგზავნილი
         </span>
       </div>
-      <div className="container p-0">
-        <div className="row">
-          {notificationType === "receive" ? (
-            <ReceiveNotification />
-          ) : (
-            <SentNotification />
-          )}
-          {/* <div className="col-12 col-md-4">
+      <div className="container notificationsContainer p-0">
+        {notificationType === "receive" ? (
+          <ReceiveNotification />
+        ) : (
+          <SentNotification />
+        )}
+        {/* <div className="col-12 col-md-4">
             <NotificationsCard />
           </div>{" "}
           <div className="col-12 col-md-4">
@@ -53,7 +52,6 @@ const Notifications = () => {
           <div className="col-12 col-md-4">
             <NotificationsCard />
           </div> */}
-        </div>
       </div>
     </div>
   );

@@ -44,6 +44,10 @@ class _Questions {
   checkPhone = (phone: any): AxiosPromise => {
     return axios.post(backEndRoutes.questions.checkPhone(), { phone });
   };
+
+  checkSmsCode = (data: { phone: string; code: any }): AxiosPromise => {
+    return axios.post(backEndRoutes.questions.checkSmsCode(), data);
+  };
 }
 
 export const Questions = new _Questions();

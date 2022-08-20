@@ -12,6 +12,7 @@ import Router, { useRouter } from "next/router";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import Logo from "../../../components/svg/logo";
+import { useCheckUnAuthResponse } from "../../../components/hooks/useCheckUnauthRespnse";
 
 interface ILoginForm {
   password: string;
@@ -40,22 +41,22 @@ const ResetPassword = () => {
 
   const router = useRouter();
   const [load, setLoad] = useState(false);
-
+  const checkUnAuth = useCheckUnAuthResponse();
   const submit = handleSubmit(async (data) => {
     // console.log(errors);'
 
     setLoad(true);
     try {
-      const res = await AuthService.passwordRecover({
-        code: "data.code",
+      const res = await AuthService.passwordReset({
+        confirm_password: data.passwordRepeat,
         password: data.password,
-        phone: router.query.phone as string,
+        current_password: data.currentPassword,
       });
 
       // debugger
       //   dispatch(setCurrentUser({ user: null, token: res.data.access_token }));
       setLoad(false);
-      toast.error("პაროლი წარმატებით შეიცვალა", {
+      toast.success("პაროლი წარმატებით შეიცვალა", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -65,13 +66,13 @@ const ResetPassword = () => {
         progress: undefined,
       });
       setTimeout(() => {
-        Router.push("/login");
-      }, 2000);
+        Router.push("/profile");
+      }, 3000);
       //   Router.push("/profile"
     } catch (e) {
       console.log(e);
       setLoad(false);
-      if (e.response.data.message) {
+      if (e?.response?.data?.message) {
         let msg =
           typeof e.response.data.message === "string"
             ? e.response.data.message
@@ -85,6 +86,9 @@ const ResetPassword = () => {
           draggable: true,
           progress: undefined,
         });
+        if (e?.response?.data?.message === "Unauthorized") {
+          checkUnAuth();
+        }
       }
     }
     // console.log(data);

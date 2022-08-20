@@ -325,6 +325,12 @@
   }
 }
 
+.notificationsContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
 @media only screen and (max-width: 768px) {
   .contactViewSwitch {
     align-items: center;
@@ -367,8 +373,12 @@
   }
   .notification_card {
     width: 100%;
+    max-width: 400px;
   }
   .userCard_wrapper {
+    max-width: 100%;
+  }
+  .notificationsContainer {
     max-width: 100%;
   }
   .profile {

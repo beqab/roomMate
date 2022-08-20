@@ -17,6 +17,14 @@ class _AuthService {
   passwordRecover = (data: { code: any; password: string; phone: string }) => {
     return axios.post(backEndRoutes.auth.password.recover(), data);
   };
+
+  passwordReset = (data: {
+    current_password: string;
+    password: string;
+    confirm_password: string;
+  }) => {
+    return axiosWithToken.post(backEndRoutes.auth.password.reset(), data);
+  };
 }
 
 export const AuthService = new _AuthService();

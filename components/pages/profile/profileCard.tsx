@@ -4,6 +4,7 @@ import { ISearchItems } from "../../../services/profile/profile.http";
 import { ProfileService } from "../../../services/profile/profile.http";
 import classnames from "classnames";
 import { useRouter } from "next/router";
+import { useTypedSelector } from "../../hooks/useTypeSelector";
 
 interface IProps extends ISearchItems {
   updateAddRemove?: (id: number, saveId: boolean) => void;
@@ -36,14 +37,17 @@ const ProfileCard: React.FC<IProps> = ({
       });
   };
 
+  const { user } = useTypedSelector((state) => state.profile);
   const router = useRouter();
+
+  console.log(user?.payed);
 
   return (
     <div className="userCard_wrapper">
       <div className="userCard_heading d-flex justify-content-between ">
         <div
           className={classnames({
-            bluer: !payed,
+            bluer: !user?.payed,
           })}
         >
           <span className="pr-3">{firstname}</span>
@@ -51,7 +55,7 @@ const ProfileCard: React.FC<IProps> = ({
         </div>
         <div
           className={classnames({
-            bluer: !payed,
+            bluer: !user?.payed,
           })}
         >
           {suitablePrices &&
@@ -86,7 +90,7 @@ const ProfileCard: React.FC<IProps> = ({
           </svg>
           <span
             className={classnames("pl-2 userCard_footer_locations ", {
-              bluer: !payed,
+              bluer: !user?.payed,
             })}
           >
             {suitableDistricts && suitableDistricts.join(", ")}
@@ -95,8 +99,8 @@ const ProfileCard: React.FC<IProps> = ({
         <div className="d-flex pointer ">
           <div
             onClick={() => {
-              if (!payed) {
-                setPayModal(payed);
+              if (!user?.payed) {
+                setPayModal(user?.payed);
 
                 return;
               }
@@ -123,8 +127,8 @@ const ProfileCard: React.FC<IProps> = ({
             <a
               onClick={(e) => {
                 e.preventDefault();
-                if (!payed) {
-                  setPayModal(payed);
+                if (!user?.payed) {
+                  setPayModal(user?.payed);
                   return;
                 } else {
                   router.push(`/user/${id}`);

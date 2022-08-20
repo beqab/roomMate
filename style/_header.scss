@@ -110,6 +110,26 @@ header {
     display: inline-block;
   }
 }
+.notificationBell {
+  position: relative;
+  cursor: pointer;
+  span {
+    position: absolute;
+    background-color: #db0505;
+    color: #fff !important;
+    border-radius: 40px;
+    font-size: 10px;
+    padding: 2px 4px;
+    min-width: 15px;
+    height: 15px;
+    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: -10px;
+    top: 1px;
+  }
+}
 
 @media only screen and (max-width: 768px) {
   .headerWrapper.profile {

@@ -2,6 +2,7 @@ import React from "react";
 import Radio from "./contentTypes/radio";
 import { Select } from "./contentTypes/select";
 import { TextField } from "./contentTypes/textField";
+import { PhoneField } from "./contentTypes/phone";
 import { NumberText } from "./contentTypes/numberField";
 import { PasswordField } from "./contentTypes/passwordField";
 import { IQuestions } from "../../../services/questions/questions.http";
@@ -29,6 +30,10 @@ const Content: React.FC<IContentProps> = ({ data, setData, values }) => {
     //   return <TextField data={data} />;
     // case "password":
     //   return <PasswordField data={data} />;
+    case data.name === "phone" ? "text" : "null":
+      return (
+        <PhoneField values={values} setData={(d) => setData(d)} data={data} />
+      );
 
     case "text":
     case "textarea":
