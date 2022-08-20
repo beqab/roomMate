@@ -18,12 +18,14 @@ import { useDispatch } from "react-redux";
 import { logout } from "../redux/action-creators";
 import PayModal from "../components/pages/payModal";
 import { useTypedSelector } from "../components/hooks/useTypeSelector";
+import Pagination from "../components/common/pagination";
 
 const Search = () => {
   useCheckAuth();
   const [searchParams, setSearchParams] = useState<IQuestions[]>([]);
   const [searchResults, setSearchResults] = useState<ISearchItems[]>([]);
   const [openSearchMenu, setOpenSearchMenu] = useState(false);
+  const [meta, setMeta] = useState<any>();
 
   const [openPayModal, setOpenPayModal] = useState(false);
 
@@ -46,31 +48,36 @@ const Search = () => {
       .catch((err) => {
         console.log(err);
       });
-
-    // setSearchParams(query);
   }, []);
 
-  // useEffect(() => {
-  //   if (router.query.filter) {
-  //     let query = JSON.parse(router.query.filter as string);
-  //     console.log(query, "qqqqqqqqqqqqqqq");
-  //     setSearchObjectFromQuery(query);
-  //     ProfileService.search({
-  //       filter: query,
-  //     })
-  //       .then((res) => {
-  //         // debugger;
-  //         setSearchResults(res.data.data);
-  //       })
-  //       .catch((err) => {
-  //       });
-  //   }
-  // }, [router.query.filter]);
+  useEffect(() => {
+    if (router.query.filter) {
+      let query = JSON.parse(router.query.filter as string);
+      console.log(query, "qqqqqqqqqqqqqqq");
+      setSearchObjectFromQuery(query);
+    }
+  }, [router.query.filter]);
 
   useEffect(() => {
-    ProfileService.search({})
+    if (user && !user?.payed) {
+      setOpenPayModal(true);
+      return;
+    }
+
+    let cleanUpSearchObject = {};
+    for (const key in searchObject) {
+      if (searchObject[key].length) {
+        cleanUpSearchObject[key] = searchObject[key];
+      }
+    }
+    ProfileService.search({
+      filters: cleanUpSearchObject,
+      page: router.query.page ? router.query.page : 1,
+    })
       .then((res) => {
         // debugger;
+        setMeta(res.data.meta);
+
         setSearchResults(res.data.data);
       })
       .catch((err) => {
@@ -81,9 +88,7 @@ const Search = () => {
         }
         // debugger;
       });
-  }, []);
-
-  console.log(searchParams, "searchParams");
+  }, [router.query]);
 
   const searchHandler = () => {
     console.log(searchObject, "searchObject");
@@ -99,29 +104,11 @@ const Search = () => {
       }
     }
 
-    // router.push("/search", {
-    //   query: {
-    //     filter: JSON.stringify(cleanUpSearchObject),
-    //   },
-    // });
-
-    ProfileService.search({ filters: cleanUpSearchObject })
-      .then((res) => {
-        // debugger;
-        setSearchResults(res.data.data);
-      })
-      .catch((err) => {
-        if (err.response) {
-          console.log(err.response.data.message);
-          if (err?.response?.data?.message === "Unauthorized") {
-            dispatch(logout());
-            // router.push("/login");
-            window.location.replace("/login");
-          }
-          // debugger;
-        }
-        // debugger;
-      });
+    router.push("/search", {
+      query: {
+        filter: JSON.stringify(cleanUpSearchObject),
+      },
+    });
   };
 
   const updateAddRemove = (id: number, saveId: boolean) => {
@@ -330,7 +317,7 @@ const Search = () => {
               })
             )}
 
-            {!searchResults.length}
+            <Pagination maxPage={meta?.pageCount} maxItem={meta?.take} />
           </div>
         </div>
       </div>

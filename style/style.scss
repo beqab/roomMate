@@ -13,6 +13,7 @@
 @import "./profile";
 @import "./common/loader";
 @import "./searchPage";
+@import "./common/pagination";
 
 body {
   // background-color: $brandColor;
@@ -86,3 +87,7 @@ hr {
 //   -webkit-text-fill-color: #fff !important;
 //   -webkit-box-shadow: 0 0 0 30px #053413 inset !important;
 // }
+
+.disabledLink {
+  pointer-events: none;
+}

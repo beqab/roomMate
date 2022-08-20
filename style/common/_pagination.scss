@@ -1,0 +1,39 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  padding: 4px 0;
+
+  & > a {
+    font-size: 17px;
+    width: 27px;
+    height: 27px;
+    text-align: center;
+    color: #23393d;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    span {
+      margin-top: 2px;
+    }
+    &.active {
+      background-color: transparent;
+      color: #f1c44f;
+      border-radius: 3px;
+      border: 1px solid #f1c44f;
+    }
+  }
+  button {
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    margin: 0 10px;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
