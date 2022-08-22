@@ -9,6 +9,7 @@ import Contact from "../components/pages/home/contact";
 import Footer from "../components/footer";
 import { useTypedSelector } from "../components/hooks/useTypeSelector";
 import Partners from "../components/pages/home/partners";
+import FB from "../components/common/fbauth";
 
 const IndexPage = () => {
   let { t } = useTranslation("common");
@@ -243,6 +244,9 @@ const IndexPage = () => {
       </section>
       <section className="partners">
         <div className="container">
+          <div>
+            <FB />
+          </div>
           <h2>პარტნიორები</h2>
           <Partners />
         </div>
