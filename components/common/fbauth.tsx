@@ -29,7 +29,7 @@ const FbLoginButton: React.FC<{}> = ({ children }) => {
           draggable: true,
           progress: undefined,
         });
-        dispatch(setCurrentUser({ ...user, socials: ["fb"] }));
+        dispatch(setCurrentUser({ user: { ...user, socials: ["fb"] } }));
       })
       .catch((err) => console.log(err));
   };
