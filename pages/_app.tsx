@@ -11,7 +11,8 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <meta charSet="utf-8" />
-        <title>site Title</title>
+        <title>Room Mate</title>
+
         {/* <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"> */}
       </Head>
       <div>

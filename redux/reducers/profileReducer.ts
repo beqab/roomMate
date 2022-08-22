@@ -21,6 +21,7 @@ interface IUser {
   social_network?: string;
   is_locked_communication?: boolean;
   answeredAnswers: IAnsweredAnswers[];
+  socials?: string[];
 }
 
 interface ISearchReducer {

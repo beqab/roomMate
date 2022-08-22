@@ -11,6 +11,10 @@ class _AuthService {
     return axios.post(backEndRoutes.auth.register(), data);
   };
 
+  fbAuth = (data: { facebookId: string; accessToken: string }) => {
+    return axiosWithToken.post(backEndRoutes.auth.fbAuth(), data);
+  };
+
   sendResetCode = (phone: string) => {
     return axios.post(backEndRoutes.auth.password.sendCode(), { phone });
   };

@@ -3,6 +3,7 @@ import { BASE_URL } from "./api";
 export const backEndRoutes = {
   auth: {
     login: () => `${BASE_URL}​/auth/login`,
+    fbAuth: () => `${BASE_URL}/social/facebook/login`,
     register: () => `${BASE_URL}/api/register`,
     password: {
       sendCode: () => `${BASE_URL}/sms-api/send`,

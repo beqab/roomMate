@@ -9,6 +9,7 @@ import { setCurrentUser } from "../../../../redux/action-creators/index";
 import { useDispatch } from "react-redux";
 import { AlertIcon } from "../../../svg/statusIcon";
 import { useCheckUnAuthResponse } from "../../../hooks/useCheckUnauthRespnse";
+import Fb from "../../../common/fbauth";
 
 interface ISidebar {
   firstname: string;
@@ -131,6 +132,9 @@ const SideBar: React.FC<ISidebar> = (props) => {
                   {!user?.is_locked_communication ? "ჩართვა" : "გამორთვა"}
                 </label>
               </div>
+              {user?.socials && !user?.socials.length ? (
+                <Fb>დაკავშირება</Fb>
+              ) : null}
             </div>
           ) : null}
 
