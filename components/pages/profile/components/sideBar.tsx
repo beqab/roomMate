@@ -132,9 +132,11 @@ const SideBar: React.FC<ISidebar> = (props) => {
                   {!user?.is_locked_communication ? "ჩართვა" : "გამორთვა"}
                 </label>
               </div>
-              {user?.socials && !user?.socials.length ? (
+              {!user?.socials?.length ? (
                 <Fb>დაკავშირება</Fb>
-              ) : null}
+              ) : (
+                <p>სოციალური ქსელი დაკავშირებულია</p>
+              )}
             </div>
           ) : null}
 
